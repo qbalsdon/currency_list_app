@@ -17,6 +17,6 @@ class RateListViewModel  : ViewModel() {
     }
 
     private fun loadRateList() {
-        // Do an asynchronous operation to fetch users.
+        // Do an asynchronous operation to fetch data
     }
 }

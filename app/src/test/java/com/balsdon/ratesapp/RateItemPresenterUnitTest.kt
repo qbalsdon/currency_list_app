@@ -5,9 +5,8 @@ import com.balsdon.ratesapp.rateItem.RateItemPresenter
 import com.balsdon.ratesapp.rateItem.RateItemView
 import com.balsdon.ratesapp.rateItem.flagResource.CountryResourceResolver
 import io.mockk.*
-import org.junit.Test
-
 import org.junit.Before
+import org.junit.Test
 
 class RateItemPresenterUnitTest {
 

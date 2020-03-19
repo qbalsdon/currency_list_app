@@ -5,7 +5,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.model.RateItem
 import kotlinx.android.synthetic.main.list_item_rate.view.*
-import java.math.BigDecimal
 
 class RateItemView(context: Context) : ConstraintLayout(context), RateItemViewable {
 

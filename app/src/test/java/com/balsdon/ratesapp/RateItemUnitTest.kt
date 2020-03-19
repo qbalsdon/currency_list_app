@@ -5,11 +5,9 @@ import com.balsdon.ratesapp.rateItem.flagResource.CountryResourceResolver
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
-import java.math.BigDecimal
+import org.junit.Test
 
 class RateItemUnitTest {
     private val mockedResourceResolver = mockk<CountryResourceResolver>()
