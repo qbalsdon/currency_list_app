@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="label_left_margin">50dp</dimen>
+    <dimen name="list_item_rate_margin">5dp</dimen>
+    <dimen name="currency_label_margin">10dp</dimen>
+    <dimen name="title_text_size">20sp</dimen>
+    <dimen name="currency_rate_text_size">20sp</dimen>
+    <dimen name="title_margin">10dp</dimen>
+    <dimen name="currency_icon_margin">10dp</dimen>
+    <dimen name="minimum_input_width">90dp</dimen>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--SOURCE: https://en.wikipedia.org/wiki/ISO_4217 -->
+    <string name="country_currency_aud">Australian Dollar</string>
+    <string name="country_currency_bgn">Bulgarian Lev</string>
+    <string name="country_currency_brl">Brazilian Real</string>
+    <string name="country_currency_cad">Canadian Dollar</string>
+    <string name="country_currency_chf">Swiss Franc</string>
+    <string name="country_currency_cny">-Chinese Yuan</string>
+    <string name="country_currency_czk">Czech Koruna</string>
+    <string name="country_currency_dkk">Danish Krone</string>
+    <string name="country_currency_gbp">Pound Sterling</string>
+    <string name="country_currency_hkd">Hong Kong Dollar</string>
+    <string name="country_currency_hrk">Croatian Kuna</string>
+    <string name="country_currency_huf">Hungarian Forint</string>
+    <string name="country_currency_idr">Indonesian Rupiah</string>
+    <string name="country_currency_ils">Israeli New Shekel</string>
+    <string name="country_currency_inr">Indian Rupee</string>
+    <string name="country_currency_isk">Icelandic Króna</string>
+    <string name="country_currency_jpy">Japanese Yen</string>
+    <string name="country_currency_krw">South Korean Won</string>
+    <string name="country_currency_mxn">Mexican Peso</string>
+    <string name="country_currency_myr">Malaysian Ringgit</string>
+    <string name="country_currency_nok">Norwegian Krone</string>
+    <string name="country_currency_nzd">New Zealand Dollar</string>
+    <string name="country_currency_php">Philippine peso</string>
+    <string name="country_currency_pln">Polish Złoty</string>
+    <string name="country_currency_ron">Romanian Leu</string>
+    <string name="country_currency_rub">Russian Ruble</string>
+    <string name="country_currency_sek">Swedish Krona</string>
+    <string name="country_currency_sgd">Singapore Dollar</string>
+    <string name="country_currency_thb">Thai Baht</string>
+    <string name="country_currency_usd">US Dollar</string>
+    <string name="country_currency_zar">South African Rand</string>
+    <string name="country_currency_unknown">Unknown</string>
+</resources>
