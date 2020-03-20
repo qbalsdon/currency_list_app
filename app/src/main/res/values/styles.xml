@@ -13,6 +13,11 @@
         <item name="android:layout_marginBottom">@dimen/list_item_rate_margin</item>
     </style>
 
+    <style name="currency_rate_icon">
+        <item name="android:layout_marginTop">@dimen/currency_icon_margin</item>
+        <item name="android:layout_marginBottom">@dimen/currency_icon_margin</item>
+    </style>
+
     <style name="currency">
         <item name="android:layout_marginLeft">@dimen/label_left_margin</item>
         <item name="android:layout_marginRight">@dimen/currency_label_margin</item>
@@ -28,9 +33,12 @@
     <style name="currency_iso" parent="currency">
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
+        <item name="android:textSize">@dimen/currency_iso_text_size</item>
     </style>
 
-    <style name="currency_name" parent="currency"/>
+    <style name="currency_name" parent="currency">
+        <item name="android:textSize">@dimen/currency_name_text_size</item>
+    </style>
     <style name="currency_rate" parent="currency">
         <item name="android:textSize">@dimen/currency_rate_text_size</item>
         <item name="android:textColor">@color/black</item>

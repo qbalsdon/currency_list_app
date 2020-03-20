@@ -7,6 +7,7 @@
 
     <ImageView
         android:id="@+id/list_item_rate_currency_flag"
+        style="@style/currency_rate_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
 

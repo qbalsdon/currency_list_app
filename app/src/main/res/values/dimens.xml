@@ -6,6 +6,8 @@
     <dimen name="title_text_size">20sp</dimen>
     <dimen name="currency_rate_text_size">20sp</dimen>
     <dimen name="title_margin">15dp</dimen>
-    <dimen name="currency_icon_margin">10dp</dimen>
+    <dimen name="currency_icon_margin">5dp</dimen>
     <dimen name="minimum_input_width">90dp</dimen>
+    <dimen name="currency_iso_text_size">18sp</dimen>
+    <dimen name="currency_name_text_size">14sp</dimen>
 </resources>
