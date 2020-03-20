@@ -1,19 +1,21 @@
 package com.balsdon.ratesapp.rateItem
 
 import android.content.Context
+import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.model.RateItem
-import kotlinx.android.synthetic.main.list_item_rate.view.*
+import kotlinx.android.synthetic.main.item_rate.view.*
 
-class RateItemView(context: Context) : ConstraintLayout(context), RateItemViewable {
+class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet), RateItemViewable {
 
     init {
-        inflate(context, R.layout.list_item_rate, this)
+        inflate(context, R.layout.item_rate, this)
     }
 
-    private val presenter: RateItemPresenter =
+    private val presenter: RateItemPresenter by lazy {
         RateItemPresenter(this)
+    }
 
     fun setRate(rateItem: RateItem, multiplier: Double) =
         presenter.setRate(rateItem, multiplier)

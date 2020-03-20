@@ -14,16 +14,24 @@ class RateListModelFactory(private val dataBroker: DataBroker) : ViewModelProvid
 }
 
 class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
-    private val rateList: MutableLiveData<RateListResult> by lazy {
-        MutableLiveData<RateListResult>().also {
-            loadRateList()
+    private val rateListResult = MutableLiveData<RateListResult>()
+
+    fun getRateList(): LiveData<RateListResult> = rateListResult
+
+    fun refresh() {
+        dataBroker.subscribeToRates { result ->
+            rateListResult.postValue(result)
+
+            when (result) {
+                is RateListResult.Empty,
+                is RateListResult.Error -> {
+                    dataBroker.unsubscribe()
+                }
+            }
         }
     }
 
-    fun getRateList(): LiveData<RateListResult> = rateList
-
-    private fun loadRateList():RateListResult {
-        // Do an asynchronous operation to fetch data
-        return dataBroker.getRates()
+    init {
+        refresh()
     }
 }

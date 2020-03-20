@@ -1,5 +1,6 @@
 package com.balsdon.ratesapp.dataBroker
 
 interface DataBroker {
-    fun getRates() : RateListResult
+    fun subscribeToRates(update: (RateListResult) -> Unit)
+    fun unsubscribe()
 }

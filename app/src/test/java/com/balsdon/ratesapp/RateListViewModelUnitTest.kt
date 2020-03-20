@@ -3,9 +3,7 @@ package com.balsdon.ratesapp
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -14,45 +12,104 @@ class RateListViewModelUnitTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-    private val brokerMock = mockk<DataBroker>()
-    private val viewModel = RateListViewModel(brokerMock)
-
     @Test
-    fun viewModelCanGetEmptyListOfRates() {
+    fun viewModelSubscribesToRates() {
         //given
-        every { brokerMock.getRates() } returns RateListResult.Empty
+        val brokerMock = mockk<DataBroker>()
+        every { brokerMock.subscribeToRates(any()) } just runs
 
         //when
-        viewModel.getRateList()
-        viewModel.getRateList()
+        RateListViewModel(brokerMock)
 
         //then
-        verify (exactly = 1) { brokerMock.getRates() }
+        verify(exactly = 1) { brokerMock.subscribeToRates(any()) }
     }
 
     @Test
-    fun viewModelCanHandleError() {
+    fun viewModelUnsubscribesOnEmpty() {
         //given
-        every { brokerMock.getRates() } returns RateListResult.Error("")
+        val testBroker = spyk(object : DataBroker {
+            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+                update.invoke(RateListResult.Empty)
+            }
+
+            override fun unsubscribe() {}
+        })
 
         //when
-        viewModel.getRateList()
-        viewModel.getRateList()
+        RateListViewModel(testBroker)
 
         //then
-        verify (exactly = 1) { brokerMock.getRates() }
+        verify(exactly = 1) { testBroker.subscribeToRates(any()) }
+        verify(exactly = 1) { testBroker.unsubscribe() }
+        confirmVerified(testBroker)
     }
 
     @Test
-    fun viewModelCanHandleSuccessRateList() {
+    fun viewModelUnsubscribesOnError() {
         //given
-        every { brokerMock.getRates() } returns RateListResult.Success(mockk())
+        val testBroker = spyk(object : DataBroker {
+            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+                update.invoke(RateListResult.Error(""))
+            }
+
+            override fun unsubscribe() {}
+        })
 
         //when
-        viewModel.getRateList()
-        viewModel.getRateList()
+        RateListViewModel(testBroker)
 
         //then
-        verify (exactly = 1) { brokerMock.getRates() }
+        verify(exactly = 1) { testBroker.subscribeToRates(any()) }
+        verify(exactly = 1) { testBroker.unsubscribe() }
+        confirmVerified(testBroker)
+    }
+
+    @Test
+    fun viewModelReSubscribesOnEmpty() {
+        //given
+        val testBroker = spyk(object : DataBroker {
+            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+                update.invoke(RateListResult.Empty)
+            }
+
+            override fun unsubscribe() {}
+        })
+
+        //when
+        val vm = RateListViewModel(testBroker)
+        vm.refresh()
+        //then
+        verifyOrder {
+            testBroker.subscribeToRates(any())
+            testBroker.unsubscribe()
+            testBroker.subscribeToRates(any())
+            testBroker.unsubscribe()
+        }
+        confirmVerified(testBroker)
+    }
+
+    @Test
+    fun viewModelReSubscribesOnError() {
+        //given
+        val testBroker = spyk(object : DataBroker {
+            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+                update.invoke(RateListResult.Error(""))
+            }
+
+            override fun unsubscribe() {}
+        })
+
+        //when
+        val vm = RateListViewModel(testBroker)
+        vm.refresh()
+        //then
+        verifyOrder {
+            testBroker.subscribeToRates(any())
+            testBroker.unsubscribe()
+            testBroker.subscribeToRates(any())
+            testBroker.unsubscribe()
+        }
+        confirmVerified(testBroker)
     }
 }

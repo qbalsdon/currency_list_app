@@ -82,6 +82,20 @@ class RateItemPresenterUnitTest {
     }
 
     @Test
+    fun rateItemPresenterDisplaysCorrectRateInViewTwoDecimalPlacesTrailingZero() {
+        //given
+        val expected = "12.50"
+        //when
+        presenter.setRate(RATE_ITEM, 5.0)
+
+        //then
+        verify(exactly = 1) {
+            mockedRateItemView.setCurrencyRate(expected)
+        }
+
+    }
+
+    @Test
     fun rateItemPresenterDisplaysCorrectRateInViewTwoDecimalPlacesZero() {
         //given
         val expected = "19.00"
