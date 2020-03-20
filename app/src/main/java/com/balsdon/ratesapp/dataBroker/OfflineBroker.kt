@@ -10,13 +10,13 @@ import java.util.*
 
 class OfflineBroker : DataBroker {
 
-    private val timer = Timer()
+    private var timer = Timer()
 
     inner class OfflineAsyncTask(private val update: (RateListResult) -> Unit) :
         AsyncTask<Unit, Unit, RateListResult>() {
         private fun randomDouble(): Double {
             val MIN = 0
-            val MAX = 1000
+            val MAX = 10000
             val r = Random()
             return MIN + (MAX - MIN) * r.nextDouble()
         }
@@ -67,14 +67,25 @@ class OfflineBroker : DataBroker {
             )
         )
 
+        private val uiResult = RateListResult.Success(
+            listOf(
+                RateItem("USD", 1183.06),
+                RateItem("EUR", 2.7083157236),
+                RateItem("SEK", 1.8211164269),
+                RateItem("CAD", 2.793121228)
+            )
+        )
+
         private val emptyResult = RateListResult.Empty
         private val errorResult = RateListResult.Error("Some user friendly error message")
 
-        override fun doInBackground(vararg p0: Unit?): RateListResult = successResult
+        override fun doInBackground(vararg p0: Unit?): RateListResult = uiResult
 
     }
 
     override fun subscribeToRates(update: (RateListResult) -> Unit) {
+        timer.cancel()
+        timer = Timer()
         val timerTask = object : TimerTask() {
             override fun run() {
                 android.util.Log.d("Quintin", "Quintin executing task")

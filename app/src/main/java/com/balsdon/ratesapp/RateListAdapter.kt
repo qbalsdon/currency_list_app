@@ -24,7 +24,8 @@ class RateListAdapter(private var ratesList: List<RateItem>) : RecyclerView.Adap
     override fun getItemCount(): Int = ratesList.size
 
     override fun onBindViewHolder(holder: RateItemViewHolder, position: Int) {
-        holder.rateItemView.setRate(ratesList[position], ratesList[BASE_RATE_INDEX].rate)
+        val multiplier = if (position == 0) 1.0 else ratesList[BASE_RATE_INDEX].rate
+        holder.rateItemView.setRate(ratesList[position], multiplier)
     }
 
     fun update(ratesList: List<RateItem>) {

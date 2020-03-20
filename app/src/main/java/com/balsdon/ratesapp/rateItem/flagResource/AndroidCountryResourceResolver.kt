@@ -11,7 +11,7 @@ class AndroidCountryResourceResolver : CountryResourceResolver {
         "BGN" to CurrencyPair(R.drawable.ic_bulgaria, R.string.country_currency_bgn),
         "BRL" to CurrencyPair(R.drawable.ic_brazil, R.string.country_currency_brl),
         "CAD" to CurrencyPair(R.drawable.ic_canada, R.string.country_currency_cad),
-        "CHF" to CurrencyPair(R.drawable.ic_swaziland, R.string.country_currency_chf),
+        "CHF" to CurrencyPair(R.drawable.ic_switzerland, R.string.country_currency_chf),
         "CNY" to CurrencyPair(R.drawable.ic_china, R.string.country_currency_cny),
         "CZK" to CurrencyPair(R.drawable.ic_czech_republic, R.string.country_currency_czk),
         "DKK" to CurrencyPair(R.drawable.ic_denmark, R.string.country_currency_dkk),
