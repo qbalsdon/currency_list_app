@@ -1,8 +1,9 @@
-package com.balsdon.ratesapp
+package com.balsdon.ratesapp.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.rateItem.RateItemView
 

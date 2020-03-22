@@ -1,31 +1,41 @@
-package com.balsdon.ratesapp
+package com.balsdon.ratesapp.view
 
 import android.os.Bundle
+import android.text.Html
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.balsdon.ratesapp.*
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_rate_list.*
 
-class RateListActivity : AppCompatActivity(), RequiresDataBroker, SubscribesToObservers {
+class RateListActivity : AppCompatActivity(), RequiresDataBroker,
+    SubscribesToObservers {
 
     private lateinit var dataBroker: DataBroker
 
     private val rateListResultObserver = Observer(::updateUI)
-    private val rateListAdapter = RateListAdapter(emptyList())
+    private val rateListAdapter =
+        RateListAdapter(emptyList())
 
     override fun setDataBroker(dataBroker: DataBroker) {
         this.dataBroker = dataBroker
     }
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, RateListModelFactory(dataBroker))
+        ViewModelProviders.of(this,
+                RateListModelFactory(dataBroker)
+            )
             .get(RateListViewModel::class.java)
     }
 
@@ -48,22 +58,32 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker, SubscribesToOb
         viewModel.refresh()
     }
 
-    private fun showError(message: String?) {
+    private fun errorCodeToStringResource(code: RateListResult.ErrorCode) : Int =
+        when (code) {
+            RateListResult.ErrorCode.SERVER_ERROR -> R.string.error_server
+            RateListResult.ErrorCode.TIMEOUT_ERROR -> R.string.error_timeout
+            else -> R.string.error_generic
+        }
+
+    private fun showError(errorCode: RateListResult.ErrorCode) =
+        showMessage(errorCodeToStringResource(errorCode))
+
+
+    private fun showMessage(messageResource: Int) =
         Snackbar
             .make(
                 currency_list,
-                message ?: getString(R.string.error_empty_list),
+                messageResource,
                 Snackbar.LENGTH_INDEFINITE
             )
             .setAction(R.string.refresh) { refresh() }
             .show()
-    }
 
     private fun updateUI(result: RateListResult) {
         when (result) {
             is RateListResult.Success -> rateListAdapter.update(result.list)
-            is RateListResult.Error -> showError(result.message)
-            is RateListResult.Empty -> showError(null)
+            is RateListResult.Error -> showError(result.errorCode)
+            is RateListResult.Empty -> showMessage(R.string.error_empty_list)
         }
     }
 
@@ -76,18 +96,18 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker, SubscribesToOb
     }
 
     private fun showCredits() {
-        AlertDialog.Builder(this)
+        val htmlMessage = HtmlCompat.fromHtml(getString(R.string.app_credits_message), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+        val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.app_credits_title)
-            .setMessage(
-                HtmlCompat.fromHtml(
-                    getString(R.string.app_credits_message),
-                    HtmlCompat.FROM_HTML_MODE_LEGACY
-                )
-            )
+            .setMessage(htmlMessage)
             .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
             .create()
-            .show()
+        dialog.apply {
+            show()
+            findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
+        }
     }
 }

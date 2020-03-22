@@ -1,4 +1,4 @@
-package com.balsdon.ratesapp
+package com.balsdon.ratesapp.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

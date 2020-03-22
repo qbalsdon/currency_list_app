@@ -2,8 +2,11 @@
     <string name="app_name">Rates</string>
     <string name="app_title">Rates</string>
     <string name="app_credits_title">Credits</string>
-    <string name="app_credits_message"><![CDATA[Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>]]></string>
     <string name="error_empty_list">Nothing to display</string>
     <string name="refresh">Refresh</string>
     <string name="country_currency_european_union">Euro</string>
+    <string name="error_generic">Something went wrong. Please try again later</string>
+    <string name="error_server">There was a problem fetching results. Please try again later</string>
+    <string name="error_timeout">Fetching results took too long. Please try again later</string>
+    <string name="app_credits_message"><![CDATA[Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br/><br/>Written by <a href="https://www.linkedin.com/in/qbalsdon/">Quintin Balsdon</a> code can be found on <a href="https://github.com/qbalsdon/currency_list_app">GitHub</a>]]></string>
 </resources>

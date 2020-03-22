@@ -1,4 +1,4 @@
-package com.balsdon.ratesapp
+package com.balsdon.ratesapp.view
 
 interface SubscribesToObservers {
     fun registerObservers()

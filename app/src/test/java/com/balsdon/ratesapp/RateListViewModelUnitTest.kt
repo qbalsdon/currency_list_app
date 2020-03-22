@@ -3,6 +3,7 @@ package com.balsdon.ratesapp
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
+import com.balsdon.ratesapp.view.RateListViewModel
 import io.mockk.*
 import org.junit.Rule
 import org.junit.Test
@@ -50,7 +51,7 @@ class RateListViewModelUnitTest {
         //given
         val testBroker = spyk(object : DataBroker {
             override fun subscribeToRates(update: (RateListResult) -> Unit) {
-                update.invoke(RateListResult.Error(""))
+                update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
             }
 
             override fun unsubscribe() {}
@@ -94,7 +95,7 @@ class RateListViewModelUnitTest {
         //given
         val testBroker = spyk(object : DataBroker {
             override fun subscribeToRates(update: (RateListResult) -> Unit) {
-                update.invoke(RateListResult.Error(""))
+                update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
             }
 
             override fun unsubscribe() {}

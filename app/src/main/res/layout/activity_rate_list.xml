@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RateListActivity">
+    tools:context=".view.RateListActivity">
 
     <TextView
         android:id="@+id/rate_list_title"
