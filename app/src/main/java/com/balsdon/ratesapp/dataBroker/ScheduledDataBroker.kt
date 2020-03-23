@@ -3,6 +3,7 @@ package com.balsdon.ratesapp.dataBroker
 import com.balsdon.ratesapp.service.ApiService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 
 class ScheduledDataBroker(private val service: ApiService) : DataBroker {
     companion object {
@@ -13,12 +14,23 @@ class ScheduledDataBroker(private val service: ApiService) : DataBroker {
     }
 
     private val scheduler = Executors.newScheduledThreadPool(THREADS)
+    private var hasError: AtomicBoolean = AtomicBoolean(false)
+
+    private fun updateSafely(result: RateListResult, update: (RateListResult) -> Unit) {
+        if(!hasError.get()) {
+            update.invoke(result)
+            hasError = AtomicBoolean((result !is RateListResult.Success))
+        }
+    }
 
     override fun subscribeToRates(update: (RateListResult) -> Unit) {
-        scheduler.scheduleAtFixedRate(
+        hasError = AtomicBoolean(false)
+        scheduler.scheduleWithFixedDelay(
             Runnable {
                 service.fetchRates(
-                    update = update
+                    update = {
+                        updateSafely(it, update)
+                    }
                 )
             },
             INITIAL_DELAY,

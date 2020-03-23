@@ -21,7 +21,6 @@ class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
     fun refresh() {
         dataBroker.subscribeToRates { result ->
             rateListResult.postValue(result)
-
             when (result) {
                 is RateListResult.Empty,
                 is RateListResult.Error -> {

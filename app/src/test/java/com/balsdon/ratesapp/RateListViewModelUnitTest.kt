@@ -113,4 +113,6 @@ class RateListViewModelUnitTest {
         }
         confirmVerified(testBroker)
     }
+
+
 }
