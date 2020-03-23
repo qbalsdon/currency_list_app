@@ -50,6 +50,11 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
             layoutManager = LinearLayoutManager(this@RateListActivity)
             adapter = rateListAdapter
         }
+
+        rate_list_base.apply {
+            setRate(RateItem(RateListViewModel.DEFAULT_CODE, RateListViewModel.DEFAULT_RATE))
+            setMultiplierChanged { rateListAdapter.updateMultiplier() }
+        }
     }
 
     private fun refresh() {
@@ -80,7 +85,7 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     private fun updateView(result: RateListResult.Success) {
         rateListAdapter.updateList(result.response.toRateItemList())
         rate_list_base
-            .setRate(RateItem(result.response.baseCurrency))
+            .setCurrency(RateItem(result.response.baseCurrency))
     }
 
     private fun updateUI(result: RateListResult) {

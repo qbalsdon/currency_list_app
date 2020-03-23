@@ -5,4 +5,5 @@ interface RateItemViewable {
     fun setCurrencyRate(currencyRate: String)
     fun setCurrencyName(stringResourceInt: Int)
     fun setIcon(drawableResourceInt: Int)
+    fun getMultiplierChanged(): () -> Unit
 }

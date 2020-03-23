@@ -1,24 +1,32 @@
 package com.balsdon.ratesapp.rateItem
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.model.RateItem
 import kotlinx.android.synthetic.main.item_rate.view.*
 
-class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet), RateItemViewable {
-
-    init {
-        inflate(context, R.layout.item_rate, this)
-    }
+class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet), RateItemViewable, TextWatcher {
 
     private val presenter: RateItemPresenter by lazy {
         RateItemPresenter(this)
     }
 
-    fun setRate(rateItem: RateItem, multiplier: Double = 1.0) =
-        presenter.setRate(rateItem, multiplier)
+    init {
+        inflate(context, R.layout.item_rate, this)
+        list_item_rate_currency_rate.addTextChangedListener (this)
+    }
+
+    private var onMultiplierChanged: () -> Unit = {}
+
+    fun setRate(rateItem: RateItem) =
+        presenter.setRate(rateItem)
+
+    fun setCurrency(rateItem: RateItem) =
+        presenter.setCurrency(rateItem)
 
     override fun setIcon(drawableResourceInt: Int) =
         list_item_rate_currency_flag.setImageDrawable(context.getDrawable(drawableResourceInt))
@@ -34,7 +42,29 @@ class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLay
     override fun setCurrencyRate(currencyRate: String) =
         list_item_rate_currency_rate.setText(currencyRate)
 
-    fun disableTextEntry() {
-        list_item_rate_currency_rate.isEnabled = false
+    override fun getMultiplierChanged():  () -> Unit {
+        return onMultiplierChanged
     }
+
+    fun setMultiplierChanged(function: () -> Unit) {
+        onMultiplierChanged = function
+    }
+
+    fun disableTextEntry() {
+        list_item_rate_currency_rate.apply{
+            isEnabled = false
+            removeTextChangedListener(this@RateItemView)
+        }
+    }
+
+
+
+    //region TextWatcher
+    override fun afterTextChanged(p0: Editable?) {}
+    override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+    override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+       presenter.updateUserEntry(text.toString())
+    }
+    //endregion
 }

@@ -14,6 +14,12 @@ class RateListModelFactory(private val dataBroker: DataBroker) : ViewModelProvid
 }
 
 class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
+
+    companion object {
+        const val DEFAULT_CODE = "EUR"
+        const val DEFAULT_RATE = 1.0
+    }
+
     private val rateListResult = MutableLiveData<RateListResult>()
 
     fun getRateList(): LiveData<RateListResult> = rateListResult

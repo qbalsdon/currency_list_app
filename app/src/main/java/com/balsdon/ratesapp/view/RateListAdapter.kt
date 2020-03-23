@@ -22,7 +22,7 @@ class RateListAdapter(private var ratesList: List<RateItem>, private var multipl
     override fun getItemCount(): Int = ratesList.size
 
     override fun onBindViewHolder(holder: RateItemViewHolder, position: Int) {
-        holder.rateItemView.setRate(ratesList[position], multiplier)
+        holder.rateItemView.setRate(ratesList[position])
     }
 
     fun updateList(ratesList: List<RateItem>) {
@@ -30,8 +30,7 @@ class RateListAdapter(private var ratesList: List<RateItem>, private var multipl
         this.notifyDataSetChanged()
     }
 
-    fun updateMultiplier(multiplier: Double) {
-        this.multiplier = multiplier
+    fun updateMultiplier() {
         this.notifyDataSetChanged()
     }
 }
