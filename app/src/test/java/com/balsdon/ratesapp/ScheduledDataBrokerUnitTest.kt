@@ -5,6 +5,7 @@ import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
 import com.balsdon.ratesapp.service.ApiService
 import io.mockk.mockk
 import io.mockk.spyk
+import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -27,7 +28,7 @@ class ScheduledDataBrokerUnitTest {
 
         var count = 0
         //when
-        broker.subscribeToRates { _ ->
+        broker.subscribeToRates("") { _ ->
             count += 1
         }
 
@@ -54,7 +55,7 @@ class ScheduledDataBrokerUnitTest {
         var count = 0
         //when
 
-        broker.subscribeToRates { _ ->
+        broker.subscribeToRates("") { _ ->
             count++
         }
 
@@ -77,9 +78,33 @@ class ScheduledDataBrokerUnitTest {
         val broker = spyk(ScheduledDataBroker(service))
         var count = 0
         //when
-        broker.subscribeToRates { _ -> count += 1 }
+        broker.subscribeToRates("") { _ -> count += 1 }
         Thread.sleep(ONE_SECOND)
         //then
         assertEquals(1, count)
+    }
+
+    @Test
+    fun canUnSubscribeWithoutSubscribing() {
+        //given
+        val broker = spyk(ScheduledDataBroker(mockk(relaxed = true)))
+
+        //when
+        broker.unsubscribe()
+
+        verify (exactly = 0) { broker.subscribeToRates(any(), any()) }
+    }
+
+    @Test
+    fun canSubscribeAfterUnSubscribing() {
+        //given
+        val broker = spyk(ScheduledDataBroker(mockk(relaxed = true)))
+
+        //when
+        broker.subscribeToRates("") { _ -> }
+        broker.unsubscribe()
+        broker.subscribeToRates("") { _ -> }
+
+        verify (exactly = 2) { broker.subscribeToRates(any(), any()) }
     }
 }

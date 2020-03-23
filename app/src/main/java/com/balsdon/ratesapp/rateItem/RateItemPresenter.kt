@@ -30,7 +30,7 @@ class RateItemPresenter(private val viewable: RateItemViewable) {
     }
 
     fun updateUserEntry(text: String) {
-        multiplier = text.toDoubleOrNull() ?: 1.0
+        multiplier = text.toDoubleOrNull() ?: 0.0
         viewable.getMultiplierChanged().invoke()
     }
 }

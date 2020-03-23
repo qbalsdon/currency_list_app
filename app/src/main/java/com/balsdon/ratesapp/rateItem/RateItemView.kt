@@ -57,8 +57,6 @@ class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLay
         }
     }
 
-
-
     //region TextWatcher
     override fun afterTextChanged(p0: Editable?) {}
     override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}

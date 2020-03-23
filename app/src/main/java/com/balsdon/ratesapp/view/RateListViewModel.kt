@@ -21,11 +21,15 @@ class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
     }
 
     private val rateListResult = MutableLiveData<RateListResult>()
+    private var currentCode = DEFAULT_CODE
 
     fun getRateList(): LiveData<RateListResult> = rateListResult
 
-    fun refresh() {
-        dataBroker.subscribeToRates { result ->
+    fun unsubscribe() = dataBroker.unsubscribe()
+
+    fun refresh(currencyCode: String = currentCode) {
+        currentCode = currencyCode
+        dataBroker.subscribeToRates(currencyCode) { result ->
             rateListResult.postValue(result)
             when (result) {
                 is RateListResult.Empty,

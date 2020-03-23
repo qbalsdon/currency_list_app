@@ -17,20 +17,20 @@ class RateListViewModelUnitTest {
     fun viewModelSubscribesToRates() {
         //given
         val brokerMock = mockk<DataBroker>()
-        every { brokerMock.subscribeToRates(any()) } just runs
+        every { brokerMock.subscribeToRates(any(), any()) } just runs
 
         //when
         RateListViewModel(brokerMock)
 
         //then
-        verify(exactly = 1) { brokerMock.subscribeToRates(any()) }
+        verify(exactly = 1) { brokerMock.subscribeToRates(any(), any()) }
     }
 
     @Test
     fun viewModelUnsubscribesOnEmpty() {
         //given
         val testBroker = spyk(object : DataBroker {
-            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+            override fun subscribeToRates(currencyCode: String, update: (RateListResult) -> Unit) {
                 update.invoke(RateListResult.Empty)
             }
 
@@ -41,7 +41,7 @@ class RateListViewModelUnitTest {
         RateListViewModel(testBroker)
 
         //then
-        verify(exactly = 1) { testBroker.subscribeToRates(any()) }
+        verify(exactly = 1) { testBroker.subscribeToRates(any(), any()) }
         verify(exactly = 1) { testBroker.unsubscribe() }
         confirmVerified(testBroker)
     }
@@ -50,7 +50,7 @@ class RateListViewModelUnitTest {
     fun viewModelUnsubscribesOnError() {
         //given
         val testBroker = spyk(object : DataBroker {
-            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+            override fun subscribeToRates(currencyCode: String, update: (RateListResult) -> Unit) {
                 update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
             }
 
@@ -61,7 +61,7 @@ class RateListViewModelUnitTest {
         RateListViewModel(testBroker)
 
         //then
-        verify(exactly = 1) { testBroker.subscribeToRates(any()) }
+        verify(exactly = 1) { testBroker.subscribeToRates(any(), any()) }
         verify(exactly = 1) { testBroker.unsubscribe() }
         confirmVerified(testBroker)
     }
@@ -70,7 +70,7 @@ class RateListViewModelUnitTest {
     fun viewModelReSubscribesOnEmpty() {
         //given
         val testBroker = spyk(object : DataBroker {
-            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+            override fun subscribeToRates(currencyCode: String, update: (RateListResult) -> Unit) {
                 update.invoke(RateListResult.Empty)
             }
 
@@ -82,9 +82,9 @@ class RateListViewModelUnitTest {
         vm.refresh()
         //then
         verifyOrder {
-            testBroker.subscribeToRates(any())
+            testBroker.subscribeToRates(any(), any())
             testBroker.unsubscribe()
-            testBroker.subscribeToRates(any())
+            testBroker.subscribeToRates(any(), any())
             testBroker.unsubscribe()
         }
         confirmVerified(testBroker)
@@ -94,7 +94,7 @@ class RateListViewModelUnitTest {
     fun viewModelReSubscribesOnError() {
         //given
         val testBroker = spyk(object : DataBroker {
-            override fun subscribeToRates(update: (RateListResult) -> Unit) {
+            override fun subscribeToRates(currencyCode: String, update: (RateListResult) -> Unit) {
                 update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
             }
 
@@ -106,9 +106,9 @@ class RateListViewModelUnitTest {
         vm.refresh()
         //then
         verifyOrder {
-            testBroker.subscribeToRates(any())
+            testBroker.subscribeToRates(any(), any())
             testBroker.unsubscribe()
-            testBroker.subscribeToRates(any())
+            testBroker.subscribeToRates(any(), any())
             testBroker.unsubscribe()
         }
         confirmVerified(testBroker)

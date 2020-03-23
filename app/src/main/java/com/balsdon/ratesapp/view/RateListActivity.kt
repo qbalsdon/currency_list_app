@@ -22,19 +22,26 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
 
     private lateinit var dataBroker: DataBroker
 
-    private val rateListResultObserver = Observer(::updateUI)
-    private val rateListAdapter =
-        RateListAdapter(emptyList())
-
-    override fun setDataBroker(dataBroker: DataBroker) {
-        this.dataBroker = dataBroker
-    }
-
     private val viewModel by lazy {
-        ViewModelProviders.of(this,
+        ViewModelProviders.of(
+                this,
                 RateListModelFactory(dataBroker)
             )
             .get(RateListViewModel::class.java)
+    }
+
+    private val rateListResultObserver = Observer(::updateUI)
+
+    private val rateListAdapter =
+        RateListAdapter(emptyList()) { currencyCode ->
+            viewModel.apply {
+                unsubscribe()
+                refresh(currencyCode)
+            }
+        }
+
+    override fun setDataBroker(dataBroker: DataBroker) {
+        this.dataBroker = dataBroker
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,11 +64,7 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
         }
     }
 
-    private fun refresh() {
-        viewModel.refresh()
-    }
-
-    private fun errorCodeToStringResource(code: RateListResult.ErrorCode) : Int =
+    private fun errorCodeToStringResource(code: RateListResult.ErrorCode): Int =
         when (code) {
             RateListResult.ErrorCode.SERVER_ERROR -> R.string.error_server
             RateListResult.ErrorCode.TIMEOUT_ERROR -> R.string.error_timeout
@@ -79,7 +82,7 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
                 messageResource,
                 Snackbar.LENGTH_INDEFINITE
             )
-            .setAction(R.string.refresh) { refresh() }
+            .setAction(R.string.refresh) { viewModel.refresh() }
             .show()
 
     private fun updateView(result: RateListResult.Success) {
@@ -105,7 +108,10 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     }
 
     private fun showCredits() {
-        val htmlMessage = HtmlCompat.fromHtml(getString(R.string.app_credits_message), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        val htmlMessage = HtmlCompat.fromHtml(
+            getString(R.string.app_credits_message),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
 
         val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.app_credits_title)
@@ -116,7 +122,8 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
             .create()
         dialog.apply {
             show()
-            findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
+            findViewById<TextView>(android.R.id.message)?.movementMethod =
+                LinkMovementMethod.getInstance()
         }
     }
 }
