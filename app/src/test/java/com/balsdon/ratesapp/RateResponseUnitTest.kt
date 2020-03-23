@@ -15,7 +15,7 @@ class RateResponseUnitTest {
         val list = TestData.testRateResponse.toRateItemList()
 
         //then
-        assert(list.size == TestData.testRateResponse.rates.size + 1)
-        Assert.assertEquals(list[0].currencyCode, "AUD")
+        assert(list.size == TestData.testRateResponse.rates.size)
+        Assert.assertEquals(list[0].currencyCode, "BGN")
     }
 }

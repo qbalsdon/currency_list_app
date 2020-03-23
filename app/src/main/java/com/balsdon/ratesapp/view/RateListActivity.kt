@@ -1,10 +1,7 @@
 package com.balsdon.ratesapp.view
 
 import android.os.Bundle
-import android.text.Html
-import android.text.SpannableString
 import android.text.method.LinkMovementMethod
-import android.text.util.Linkify
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +13,10 @@ import com.balsdon.ratesapp.*
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
+import com.balsdon.ratesapp.model.RateItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_rate_list.*
+import kotlinx.android.synthetic.main.list_item_rate.view.*
 
 class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     SubscribesToObservers {
@@ -79,9 +78,15 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
             .setAction(R.string.refresh) { refresh() }
             .show()
 
+    private fun updateView(result: RateListResult.Success) {
+        rateListAdapter.updateList(result.response.toRateItemList())
+        rate_list_base
+            .setRate(RateItem(result.response.baseCurrency))
+    }
+
     private fun updateUI(result: RateListResult) {
         when (result) {
-            is RateListResult.Success -> rateListAdapter.update(result.list)
+            is RateListResult.Success -> updateView(result)
             is RateListResult.Error -> showError(result.errorCode)
             is RateListResult.Empty -> showMessage(R.string.error_empty_list)
         }

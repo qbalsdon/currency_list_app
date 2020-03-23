@@ -12,7 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 class RetrofitService (
-    val service: RateService
+    private val service: RateService
 ) : ApiService, Callback<RateResponse> {
     private lateinit var update: (RateListResult) -> Unit
 
@@ -28,18 +28,17 @@ class RetrofitService (
     }
 
     override fun onResponse(call: Call<RateResponse>, response: Response<RateResponse>) {
-        update.invoke(
-            if (response.isSuccessful) {
-                if (response.body() != null) {
-                    val list = response.body()!!.toRateItemList()
-                    if (list.isNotEmpty())
-                        RateListResult.Success(list)
-                    else
-                        RateListResult.Empty
-                } else {
-                    RateListResult.Error(RateListResult.ErrorCode.SERVER_ERROR)
-                }
-            } else RateListResult.Error(RateListResult.ErrorCode.REQUEST_ERROR)
-        )
+        val body = response.body()
+        val rateListResult = if (body == null) {
+            RateListResult.Error(RateListResult.ErrorCode.SERVER_ERROR)
+        } else {
+            if(body.rates.isEmpty()) {
+                RateListResult.Empty
+            } else {
+                RateListResult.Success(body)
+            }
+        }
+
+        update.invoke(rateListResult)
     }
 }

@@ -15,7 +15,18 @@
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/currency_list"
+        app:layout_constraintBottom_toTopOf="@id/rate_list_base"
+        />
+
+    <com.balsdon.ratesapp.rateItem.RateItemView
+        android:id="@+id/rate_list_base"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/list_item_rate"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rate_list_title"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rate_list_title"
+        app:layout_constraintTop_toBottomOf="@id/rate_list_base"
 
         tools:listitem="@layout/item_rate"
         />

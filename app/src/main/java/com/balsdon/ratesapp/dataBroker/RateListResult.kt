@@ -1,6 +1,6 @@
 package com.balsdon.ratesapp.dataBroker
 
-import com.balsdon.ratesapp.model.RateItem
+import com.balsdon.ratesapp.model.RateResponse
 
 sealed class RateListResult {
     enum class ErrorCode {
@@ -12,5 +12,5 @@ sealed class RateListResult {
 
     object Empty : RateListResult()
     class Error(val errorCode: ErrorCode) : RateListResult()
-    class Success(val list : List<RateItem>) : RateListResult()
+    class Success(val response : RateResponse) : RateListResult()
 }

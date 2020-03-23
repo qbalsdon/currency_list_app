@@ -17,7 +17,7 @@ class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLay
         RateItemPresenter(this)
     }
 
-    fun setRate(rateItem: RateItem, multiplier: Double) =
+    fun setRate(rateItem: RateItem, multiplier: Double = 1.0) =
         presenter.setRate(rateItem, multiplier)
 
     override fun setIcon(drawableResourceInt: Int) =
@@ -33,4 +33,8 @@ class RateItemView(context: Context, attributeSet: AttributeSet) : ConstraintLay
 
     override fun setCurrencyRate(currencyRate: String) =
         list_item_rate_currency_rate.setText(currencyRate)
+
+    fun disableTextEntry() {
+        list_item_rate_currency_rate.isEnabled = false
+    }
 }
