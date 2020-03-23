@@ -8,7 +8,7 @@ import java.util.*
 class DebugMockService() : ApiService {
     companion object {
         const val RANDOM_MIN = 0.0
-        const val RANDOM_MAX = 10000.0
+        const val RANDOM_MAX = 99999999999.0
 
         val randomGenerator: Random by lazy {
             Random()
@@ -53,7 +53,9 @@ class DebugMockService() : ApiService {
         "USD",
         "ZAR"
     )
+
     private val demoCountryCodes = listOf("USD", "EUR", "SEK", "CAD")
+    private var stepCounter = 0
 
     private fun generateSuccessResult(currencyCode: String, codeList: List<String>) =
         RateListResult.Success(
@@ -65,10 +67,21 @@ class DebugMockService() : ApiService {
             )
         )
 
+    private fun generateErrorResult() =
+        RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR)
+
+
     override fun fetchRates(
         currencyCode: String,
         update: (RateListResult) -> Unit
     ) {
-        update.invoke(generateSuccessResult(currencyCode, demoCountryCodes))
+        Thread.sleep(5000L)
+
+        when (stepCounter) {
+            0 -> update.invoke(generateErrorResult())
+            1 -> update.invoke(generateErrorResult())
+            2 -> update.invoke(generateSuccessResult(currencyCode, allCountryCodes))
+        }
+        stepCounter = (stepCounter + 1) % 3
     }
 }

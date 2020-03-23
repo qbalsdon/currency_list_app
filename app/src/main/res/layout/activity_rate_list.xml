@@ -8,37 +8,67 @@
 
     <TextView
         android:id="@+id/rate_list_title"
+        style="@style/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/title"
         android:text="@string/app_title"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/rate_list_base"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/rate_list_splash_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rate_list_title"
+
+            tools:visibility="gone"
+            />
+
+        <ProgressBar
+            android:id="@+id/rate_list_loading_progress"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rate_list_title"
+
+            tools:visibility="gone"
+            />
 
     <com.balsdon.ratesapp.rateItem.RateItemView
         android:id="@+id/rate_list_base"
+        style="@style/list_item_rate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        style="@style/list_item_rate"
 
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rate_list_title"
-        />
+        tools:visibility="visible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currency_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rate_list_base"
 
         tools:listitem="@layout/item_rate"
-        />
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

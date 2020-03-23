@@ -2,6 +2,7 @@ package com.balsdon.ratesapp.view
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +34,11 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     private val rateListResultObserver = Observer(::updateUI)
 
     private val rateListAdapter =
-        RateListAdapter(emptyList()) { currencyCode ->
+        RateListAdapter(emptyList()) { rateItem ->
+            rate_list_base.setRate(rateItem)
             viewModel.apply {
                 unsubscribe()
-                refresh(currencyCode)
+                refresh(rateItem)
             }
         }
 
@@ -59,8 +61,10 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
         }
 
         rate_list_base.apply {
+            enableTextEntry()
             setRate(RateItem(RateListViewModel.DEFAULT_CODE, RateListViewModel.DEFAULT_RATE))
             setMultiplierChanged { rateListAdapter.updateMultiplier() }
+            setMaxInputLimit(RateListViewModel.MAX_INPUT_LENGTH)
         }
     }
 
@@ -75,17 +79,28 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
         showMessage(errorCodeToStringResource(errorCode))
 
 
-    private fun showMessage(messageResource: Int) =
+    private fun showMessage(messageResource: Int) {
+        rate_list_loading_progress.visibility = View.GONE
         Snackbar
             .make(
                 currency_list,
                 messageResource,
                 Snackbar.LENGTH_INDEFINITE
             )
-            .setAction(R.string.refresh) { viewModel.refresh() }
+            .setAction(R.string.refresh) {
+                if (currency_list.visibility == View.GONE) {
+                    rate_list_loading_progress.visibility = View.VISIBLE
+                }
+                viewModel.refresh()
+            }
             .show()
+    }
 
     private fun updateView(result: RateListResult.Success) {
+        rate_list_splash_image.visibility = View.GONE
+        rate_list_loading_progress.visibility = View.GONE
+        rate_list_base.visibility = View.VISIBLE
+        currency_list.visibility = View.VISIBLE
         rateListAdapter.updateList(result.response.toRateItemList())
         rate_list_base
             .setCurrency(RateItem(result.response.baseCurrency))

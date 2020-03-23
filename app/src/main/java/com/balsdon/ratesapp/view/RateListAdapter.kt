@@ -9,7 +9,7 @@ import com.balsdon.ratesapp.rateItem.RateItemView
 
 class RateListAdapter(
     private var ratesList: List<RateItem>,
-    private val baseCurrencyChanged: (String) -> Unit
+    private val baseCurrencyChanged: (RateItem) -> Unit
 ) : RecyclerView.Adapter<RateListAdapter.RateItemViewHolder>() {
     class RateItemViewHolder(val rateItemView: RateItemView) : RecyclerView.ViewHolder(rateItemView)
 
@@ -18,7 +18,6 @@ class RateListAdapter(
             .from(parent.context)
             .inflate(R.layout.list_item_rate, parent, false)
                 as RateItemView
-        view.disableTextEntry()
         return RateItemViewHolder(view)
     }
 
@@ -27,7 +26,7 @@ class RateListAdapter(
     override fun onBindViewHolder(holder: RateItemViewHolder, position: Int) {
         holder.rateItemView.apply {
             setRate(ratesList[position])
-            setOnClickListener { baseCurrencyChanged.invoke(ratesList[position].currencyCode) }
+            setOnClickListener { baseCurrencyChanged.invoke(ratesList[position]) }
         }
     }
 
