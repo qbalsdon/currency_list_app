@@ -3,12 +3,10 @@ package com.balsdon.ratesapp
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
 import com.balsdon.ratesapp.service.ApiService
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.concurrent.atomic.AtomicInteger
 
 class ScheduledDataBrokerUnitTest {
     companion object{

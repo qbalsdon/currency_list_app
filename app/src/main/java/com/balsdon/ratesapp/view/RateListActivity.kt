@@ -9,14 +9,13 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.balsdon.ratesapp.*
+import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.model.RateItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_rate_list.*
-import kotlinx.android.synthetic.main.list_item_rate.view.*
 
 class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     SubscribesToObservers {

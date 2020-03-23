@@ -3,9 +3,9 @@ package com.balsdon.ratesapp
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
 import com.balsdon.ratesapp.dataBroker.RateService
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
+import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
 import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.rateItem.flagResource.AndroidCountryResourceResolver
 import com.balsdon.ratesapp.service.RetrofitService
