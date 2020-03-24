@@ -1,7 +1,7 @@
 # Android Rates App
 ## Written by Quintin Balsdon
 
-<div align="center">![Rates App Icon](app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png "Rates App Icon")</div>
+![Rates App Icon](app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png "Rates App Icon")
 
 This Android App gets a list of currency rates from a data source and renders them on a screen
 
