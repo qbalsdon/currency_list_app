@@ -37,6 +37,7 @@ class AndroidCountryResourceResolver : CountryResourceResolver {
         "SEK" to CurrencyPair(R.drawable.ic_sweden, R.string.country_currency_sek),
         "SGD" to CurrencyPair(R.drawable.ic_singapore, R.string.country_currency_sgd),
         "THB" to CurrencyPair(R.drawable.ic_thailand, R.string.country_currency_thb),
+        "TRY" to CurrencyPair(R.drawable.ic_turkey, R.string.country_currency_tur),
         "USD" to CurrencyPair(R.drawable.ic_united_states_of_america, R.string.country_currency_usd),
         "ZAR" to CurrencyPair(R.drawable.ic_south_africa, R.string.country_currency_zar)
     )

@@ -1,37 +1,36 @@
 package com.balsdon.ratesapp.service
 
 import com.balsdon.ratesapp.dataBroker.RateListResult
-import com.balsdon.ratesapp.dataBroker.RateService
-import com.balsdon.ratesapp.model.RateResponse
+import com.balsdon.ratesapp.model.EnvironmentResponseMapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RetrofitService (
-    private val service: RateService
-) : ApiService, Callback<RateResponse> {
+class RetrofitService<T: EnvironmentResponseMapper> (
+    private val service: RateServiceCommand<T>
+) : ApiService, Callback<T> {
     private lateinit var update: (RateListResult) -> Unit
 
     override fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit) {
         this.update = update
         service
-            .getRates(currencyCode)
+            .getRateCall(currencyCode)
             .enqueue(this)
     }
 
-    override fun onFailure(call: Call<RateResponse>, t: Throwable) {
+    override fun onFailure(call: Call<T>, t: Throwable) {
         update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
     }
 
-    override fun onResponse(call: Call<RateResponse>, response: Response<RateResponse>) {
+    override fun onResponse(call: Call<T>, response: Response<T>) {
         val body = response.body()
         val rateListResult = if (body == null) {
             RateListResult.Error(RateListResult.ErrorCode.SERVER_ERROR)
         } else {
-            if(body.rates.isEmpty()) {
+            if(body.isEmpty()) {
                 RateListResult.Empty
             } else {
-                RateListResult.Success(body)
+                RateListResult.Success(body.toRateResponse())
             }
         }
 

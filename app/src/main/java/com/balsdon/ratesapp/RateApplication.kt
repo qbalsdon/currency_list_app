@@ -3,11 +3,12 @@ package com.balsdon.ratesapp
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.balsdon.ratesapp.dataBroker.RateService
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
+import com.balsdon.ratesapp.model.EnvironmentResponseMapper
 import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.rateItem.flagResource.AndroidCountryResourceResolver
+import com.balsdon.ratesapp.service.RateServiceCommand
 import com.balsdon.ratesapp.service.RetrofitService
 import com.balsdon.ratesapp.view.SubscribesToObservers
 import okhttp3.OkHttpClient
@@ -15,12 +16,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-open class RateApplication : Application(), Application.ActivityLifecycleCallbacks {
-
+abstract class RateApplication<T, V: EnvironmentResponseMapper> : Application(), Application.ActivityLifecycleCallbacks {
     companion object {
-        private const val READ_TIMEOUT = 5L
-        private const val CONNECT_TIMEOUT = 5L
-        private val TIME_UNIT = TimeUnit.SECONDS
+        const val READ_TIMEOUT = 5L
+        const val CONNECT_TIMEOUT = 5L
+        val TIME_UNIT = TimeUnit.SECONDS
     }
 
     override fun onCreate() {
@@ -33,23 +33,33 @@ open class RateApplication : Application(), Application.ActivityLifecycleCallbac
         registerActivityLifecycleCallbacks(this)
     }
 
-    private val service: RetrofitService by lazy {
-        RetrofitService(Retrofit.Builder()
+    abstract fun getServiceClass(): Class<T>
+    abstract fun createRateServiceCommand(service: T): RateServiceCommand<V>
+
+    private val rateServiceCommand by lazy {
+        val service = Retrofit.Builder()
             .baseUrl(getString(R.string.rates_endpoint))
             .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient
-                .Builder()
-                .readTimeout(READ_TIMEOUT, TIME_UNIT)
-                .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
-                .build()
+            .client(
+                OkHttpClient
+                    .Builder()
+                    .readTimeout(READ_TIMEOUT, TIME_UNIT)
+                    .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
+                    .build()
             )
             .build()
-            .create(RateService::class.java))
+            .create(getServiceClass())
+
+        createRateServiceCommand(service)
+    }
+
+    private val service: RetrofitService<V> by lazy {
+        RetrofitService(rateServiceCommand)
     }
 
     override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
         if (activity is RequiresDataBroker) {
-            activity.setDataBroker(ScheduledDataBroker(service))
+            activity.setDataBroker(ScheduledDataBroker(service, resources.getInteger(R.integer.refresh_rate)))
         }
     }
 
@@ -59,6 +69,7 @@ open class RateApplication : Application(), Application.ActivityLifecycleCallbac
             activity.unregisterObservers()
         }
     }
+
     override fun onActivityResumed(activity: Activity?) {
         if (activity is SubscribesToObservers) {
             activity.registerObservers()

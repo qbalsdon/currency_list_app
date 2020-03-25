@@ -6,11 +6,10 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
-class ScheduledDataBroker(private val service: ApiService) : DataBroker {
+class ScheduledDataBroker(private val service: ApiService, private val intervalDelaySeconds: Int) : DataBroker {
     companion object {
         private const val THREADS = 1
         private const val INITIAL_DELAY = 0L
-        private const val INTERVAL_DELAY = 1L
         private val TIME_UNIT = TimeUnit.SECONDS
     }
 
@@ -37,7 +36,7 @@ class ScheduledDataBroker(private val service: ApiService) : DataBroker {
                 )
             },
             INITIAL_DELAY,
-            INTERVAL_DELAY,
+            intervalDelaySeconds.toLong(),
             TIME_UNIT
         )
     }

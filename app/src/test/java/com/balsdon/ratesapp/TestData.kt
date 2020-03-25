@@ -1,5 +1,6 @@
 package com.balsdon.ratesapp
 
+import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.model.RateResponse
 
 class TestData {
@@ -7,38 +8,38 @@ class TestData {
         val testRateResponse =
             RateResponse(
                 "AUD",
-                mapOf(
-                    "BGN" to 1.26,
-                    "BRL" to 2.649,
-                    "CAD" to 0.956,
-                    "CHF" to 0.725,
-                    "CNY" to 4.891,
-                    "CZK" to 16.248,
-                    "DKK" to 4.804,
-                    "EUR" to 0.636,
-                    "GBP" to 0.56,
-                    "HKD" to 5.647,
-                    "HRK" to 4.761,
-                    "HUF" to 201.432,
-                    "IDR" to 10112.164,
-                    "ILS" to 2.624,
-                    "INR" to 51.717,
-                    "ISK" to 86.098,
-                    "JPY" to 79.946,
-                    "KRW" to 818.313,
-                    "MXN" to 13.959,
-                    "MYR" to 2.955,
-                    "NOK" to 6.181,
-                    "NZD" to 1.058,
-                    "PHP" to 37.524,
-                    "PLN" to 2.764,
-                    "RON" to 3.023,
-                    "RUB" to 48.085,
-                    "SEK" to 6.755,
-                    "SGD" to 0.983,
-                    "THB" to 22.363,
-                    "USD" to 0.727,
-                    "ZAR" to 10.092
+                listOf(
+                    RateItem("BGN", 1.26),
+                    RateItem("BRL", 2.649),
+                    RateItem("CAD", 0.956),
+                    RateItem("CHF", 0.725),
+                    RateItem("CNY", 4.891),
+                    RateItem("CZK", 16.248),
+                    RateItem("DKK", 4.804),
+                    RateItem("EUR", 0.636),
+                    RateItem("GBP", 0.56),
+                    RateItem("HKD", 5.647),
+                    RateItem("HRK", 4.761),
+                    RateItem("HUF", 201.432),
+                    RateItem("IDR", 10112.164),
+                    RateItem("ILS", 2.624),
+                    RateItem("INR", 51.717),
+                    RateItem("ISK", 86.098),
+                    RateItem("JPY", 79.946),
+                    RateItem("KRW", 818.313),
+                    RateItem("MXN", 13.959),
+                    RateItem("MYR", 2.955),
+                    RateItem("NOK", 6.181),
+                    RateItem("NZD", 1.058),
+                    RateItem("PHP", 37.524),
+                    RateItem("PLN", 2.764),
+                    RateItem("RON", 3.023),
+                    RateItem("RUB", 48.085),
+                    RateItem("SEK", 6.755),
+                    RateItem("SGD", 0.983),
+                    RateItem("THB", 22.363),
+                    RateItem("USD", 0.727),
+                    RateItem("ZAR", 10.092)
                 )
             )
     }
