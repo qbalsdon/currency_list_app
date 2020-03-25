@@ -31,5 +31,5 @@ The [RateItemView](https://github.com/qbalsdon/currency_list_app/blob/master/app
 Currently the testing has been unit testing only. The Presenters, ViewModels and behavioural elements are all separated from the view and view logic.
 
 ## Icons
-App icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [Flaticon](https://www.flaticon.com/)
-Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/)
+* App icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [Flaticon](https://www.flaticon.com/)
+* Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/)
