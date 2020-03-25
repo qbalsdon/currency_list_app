@@ -8,7 +8,7 @@ import java.util.*
 class DebugMockService() : ApiService {
     companion object {
         const val RANDOM_MIN = 0.0
-        const val RANDOM_MAX = 99999999999.0
+        const val RANDOM_MAX = 999.0
 
         val randomGenerator: Random by lazy {
             Random()
@@ -75,11 +75,11 @@ class DebugMockService() : ApiService {
         currencyCode: String,
         update: (RateListResult) -> Unit
     ) {
-        Thread.sleep(5000L)
+        //Thread.sleep(5000L)
 
         when (stepCounter) {
-            0 -> update.invoke(generateErrorResult())
-            1 -> update.invoke(generateErrorResult())
+            0,// -> update.invoke(generateErrorResult())
+            1,// -> update.invoke(generateErrorResult())
             2 -> update.invoke(generateSuccessResult(currencyCode, allCountryCodes))
         }
         stepCounter = (stepCounter + 1) % 3

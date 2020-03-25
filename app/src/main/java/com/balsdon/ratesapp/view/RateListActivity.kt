@@ -101,7 +101,7 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
         rate_list_loading_progress.visibility = View.GONE
         rate_list_base.visibility = View.VISIBLE
         currency_list.visibility = View.VISIBLE
-        rateListAdapter.updateList(result.response.toRateItemList())
+        rateListAdapter.updateList(result.response.rates)
         rate_list_base
             .setCurrency(RateItem(result.response.baseCurrency))
     }

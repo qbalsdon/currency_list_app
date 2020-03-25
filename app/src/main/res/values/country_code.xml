@@ -16,7 +16,7 @@
     <string name="country_currency_idr">Indonesian Rupiah</string>
     <string name="country_currency_ils">Israeli New Shekel</string>
     <string name="country_currency_inr">Indian Rupee</string>
-    <string name="country_currency_isk">Icelandic Króna</string>
+    <string name="country_currency_isk">Icelandic Krona</string>
     <string name="country_currency_jpy">Japanese Yen</string>
     <string name="country_currency_krw">South Korean Won</string>
     <string name="country_currency_mxn">Mexican Peso</string>
@@ -30,6 +30,7 @@
     <string name="country_currency_sek">Swedish Krona</string>
     <string name="country_currency_sgd">Singapore Dollar</string>
     <string name="country_currency_thb">Thai Baht</string>
+    <string name="country_currency_tur">Turkish Lira</string>
     <string name="country_currency_usd">US Dollar</string>
     <string name="country_currency_zar">South African Rand</string>
     <string name="country_currency_unknown">Unknown</string>

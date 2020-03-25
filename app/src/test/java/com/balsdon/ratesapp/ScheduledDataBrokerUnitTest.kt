@@ -11,6 +11,7 @@ import org.junit.Test
 
 class ScheduledDataBrokerUnitTest {
     companion object{
+        private const val DELAY = 1
         private const val ONE_SECOND = 1000L
     }
 
@@ -24,7 +25,7 @@ class ScheduledDataBrokerUnitTest {
                 update.invoke(RateListResult.Success(mockk()))
             }
         }
-        val broker = ScheduledDataBroker(service)
+        val broker = ScheduledDataBroker(service, DELAY)
 
         var count = 0
         //when
@@ -50,7 +51,7 @@ class ScheduledDataBrokerUnitTest {
                 update.invoke(RateListResult.Success(mockk()))
             }
         })
-        val broker = ScheduledDataBroker(service)
+        val broker = ScheduledDataBroker(service, DELAY)
 
         var count = 0
         //when
@@ -75,7 +76,7 @@ class ScheduledDataBrokerUnitTest {
                 update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
             }
         })
-        val broker = spyk(ScheduledDataBroker(service))
+        val broker = spyk(ScheduledDataBroker(service, DELAY))
         var count = 0
         //when
         broker.subscribeToRates("") { _ -> count += 1 }
@@ -87,7 +88,7 @@ class ScheduledDataBrokerUnitTest {
     @Test
     fun canUnSubscribeWithoutSubscribing() {
         //given
-        val broker = spyk(ScheduledDataBroker(mockk(relaxed = true)))
+        val broker = spyk(ScheduledDataBroker(mockk(relaxed = true), DELAY))
 
         //when
         broker.unsubscribe()
@@ -98,7 +99,7 @@ class ScheduledDataBrokerUnitTest {
     @Test
     fun canSubscribeAfterUnSubscribing() {
         //given
-        val broker = spyk(ScheduledDataBroker(mockk(relaxed = true)))
+        val broker = spyk(ScheduledDataBroker(mockk(relaxed = true), DELAY))
 
         //when
         broker.subscribeToRates("") { _ -> }

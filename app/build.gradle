@@ -31,6 +31,13 @@ android {
             dimension 'ratesapp'
         }
 
+        onlineecb {
+            applicationId "com.balsdon.ratesapp.onlineecb"
+            versionCode 1
+            versionName "1.0.0"
+            dimension 'ratesapp'
+        }
+
         offlinemock {
             applicationId "com.balsdon.ratesapp.offlinemock"
             versionCode 1
