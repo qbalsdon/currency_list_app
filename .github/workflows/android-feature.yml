@@ -1,11 +1,10 @@
 name: Android Feature Branch CI
 
 on:
-  push:
+  schedule:
+    - cron:  '*/5 * * * *'
     branches:
-      - '*'
-      - '!master'
-      - '!release*'
+      - master
 
 jobs:
   test:
