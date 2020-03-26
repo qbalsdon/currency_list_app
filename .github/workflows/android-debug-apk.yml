@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-offlinemock
-          path: app/build/outputs/apk/debug/app-offlinemock-debug.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-offlinemock-debug.apk
 
   ecbapk:
     name: Generate Euro Central Bank Debug APK
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-onlineecb
-          path: app/build/outputs/apk/debug/app-onlineecb-debug.apk
+          path: app/build/outputs/apk/onlineecb/debug/app-onlineecb-debug.apk
 
   prodapk:
     name: Generate Production Debug APK
@@ -74,5 +74,5 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-production
-          path: app/build/outputs/apk/debug/app-production-debug.apk
+          path: app/build/outputs/apk/production/debug/app-production-debug.apk
 
