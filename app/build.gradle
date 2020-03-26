@@ -25,7 +25,9 @@ android {
             ext.enableCrashlytics = false
         }
     }
+
     flavorDimensions 'ratesapp'
+
     productFlavors {
         production {
             applicationId "com.balsdon.ratesapp"
@@ -35,20 +37,19 @@ android {
         }
 
         onlineecb {
-            applicationId "com.balsdon.ratesapp.onlineecb"
+            applicationIdSuffix ".onlineecb"
             versionCode 1
             versionName "1.0.0"
             dimension 'ratesapp'
         }
 
         offlinemock {
-            applicationId "com.balsdon.ratesapp.offlinemock"
+            applicationIdSuffix ".offlinemock"
             versionCode 1
             versionName "0.0.1"
             dimension 'ratesapp'
         }
     }
-
 }
 
 dependencies {
@@ -63,7 +64,6 @@ dependencies {
     implementation "com.squareup.okhttp:okhttp:$okhttp_version"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
     implementation "com.google.android.material:material:$material_version"
-
     implementation "com.android.support:recyclerview-v7:$recyclerview_v7_version"
 
     testImplementation 'junit:junit:4.12'

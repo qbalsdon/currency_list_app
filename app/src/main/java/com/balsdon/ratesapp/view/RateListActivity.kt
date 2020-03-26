@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.dataBroker.DataBroker
@@ -24,10 +24,7 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     private lateinit var dataBroker: DataBroker
 
     private val viewModel by lazy {
-        ViewModelProviders.of(
-                this,
-                RateListModelFactory(dataBroker)
-            )
+        ViewModelProvider(this, RateListModelFactory(dataBroker))
             .get(RateListViewModel::class.java)
     }
 
