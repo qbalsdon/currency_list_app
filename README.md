@@ -1,8 +1,6 @@
 ![Android Master](https://github.com/qbalsdon/currency_list_app/workflows/Android%20Master/badge.svg?branch=master&event=push)
 # Android Rates App
-<div style="text-align:center">
-    <img src="app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"/>
-</div>
+![Rates App Icon](app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png "Rates App Icon")
 
 ## Written by Quintin Balsdon
 A [Trello Board](https://trello.com/b/GtrPNW8y/rates-app) is used to track App progress
@@ -10,11 +8,9 @@ A [Trello Board](https://trello.com/b/GtrPNW8y/rates-app) is used to track App p
 This Android App gets a list of currency rates from a data source and renders them on a screen. The user can modify the input on the top item and the other rates will automatically adjust. If the user clicks on any element except the top element, that element will become the top element
 <br/>
 <br/>
-<div style="text-align:center">
-    <a href="http://www.youtube.com/watch?feature=player_embedded&v=-5BXo8nmboY" target="_blank">
-        <img src="http://img.youtube.com/vi/-5BXo8nmboY/0.jpg" alt="Basic functionality of the app" width="240" height="180" border="10" />
-    </a>
-</div>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=-5BXo8nmboY" target="_blank">
+    <img src="http://img.youtube.com/vi/-5BXo8nmboY/0.jpg" alt="Basic functionality of the app" width="240" height="180" border="10" />
+</a>
 
 ## Architecture
 The app uses a mixture of [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) and [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter), depending on necessity.

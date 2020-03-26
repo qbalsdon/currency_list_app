@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1003670753261",
+    "firebase_url": "https://rates-app-45cac.firebaseio.com",
+    "project_id": "rates-app-45cac",
+    "storage_bucket": "rates-app-45cac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003670753261:android:2fb8e2cf5735e6e4cb61e4",
+        "android_client_info": {
+          "package_name": "com.balsdon.ratesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003670753261-6qe3sqek5hchn5odqtgl6ht2ctbpdvd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfuHXhIGQPuQUaXFTeQn7ovFsXPZFbTJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003670753261-6qe3sqek5hchn5odqtgl6ht2ctbpdvd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003670753261:android:a89198bfa6987a1ecb61e4",
+        "android_client_info": {
+          "package_name": "com.balsdon.ratesapp.onlineecb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003670753261-6qe3sqek5hchn5odqtgl6ht2ctbpdvd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfuHXhIGQPuQUaXFTeQn7ovFsXPZFbTJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003670753261-6qe3sqek5hchn5odqtgl6ht2ctbpdvd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
