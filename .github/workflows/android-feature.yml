@@ -2,10 +2,9 @@ name: Android Feature Branch CI
 
 on:
   push:
-    branches:
-      - '*'
-      - '!master'
-      - '!release*'
+    branches-ignore:
+      - master
+      - release*
 
 jobs:
   test:
