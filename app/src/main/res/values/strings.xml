@@ -8,5 +8,5 @@
     <string name="error_generic">Something went wrong. Please try again later</string>
     <string name="error_server">There was a problem fetching results. Please try again later</string>
     <string name="error_timeout">Fetching results took too long. Please try again later</string>
-    <string name="app_credits_message"><![CDATA[Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br/><br/>Written by <a href="https://www.linkedin.com/in/qbalsdon/">Quintin Balsdon</a> code can be found on <a href="https://github.com/qbalsdon/currency_list_app">GitHub</a>]]></string>
+    <string name="app_credits_message"><![CDATA[App icon made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br/><br/>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br/><br/>Written by <a href="https://www.linkedin.com/in/qbalsdon/">Quintin Balsdon</a> code can be found on <a href="https://github.com/qbalsdon/currency_list_app">GitHub</a>]]></string>
 </resources>

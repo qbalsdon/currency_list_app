@@ -33,36 +33,6 @@ abstract class RateApplication<T, V: EnvironmentResponseMapper> : Application(),
         registerActivityLifecycleCallbacks(this)
     }
 
-    abstract fun getServiceClass(): Class<T>
-    abstract fun createRateServiceCommand(service: T): RateServiceCommand<V>
-
-    private val rateServiceCommand by lazy {
-        val service = Retrofit.Builder()
-            .baseUrl(getString(R.string.rates_endpoint))
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(
-                OkHttpClient
-                    .Builder()
-                    .readTimeout(READ_TIMEOUT, TIME_UNIT)
-                    .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
-                    .build()
-            )
-            .build()
-            .create(getServiceClass())
-
-        createRateServiceCommand(service)
-    }
-
-    private val service: RetrofitService<V> by lazy {
-        RetrofitService(rateServiceCommand)
-    }
-
-    override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
-        if (activity is RequiresDataBroker) {
-            activity.setDataBroker(ScheduledDataBroker(service, resources.getInteger(R.integer.refresh_rate)))
-        }
-    }
-
     //doing some of the annoying lifecycle stuff that's always easy to forget
     override fun onActivityPaused(activity: Activity?) {
         if (activity is SubscribesToObservers) {

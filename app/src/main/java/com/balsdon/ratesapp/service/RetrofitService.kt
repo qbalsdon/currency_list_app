@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RetrofitService<T: EnvironmentResponseMapper> (
+class RetrofitService<T : EnvironmentResponseMapper>(
     private val service: RateServiceCommand<T>
 ) : ApiService, Callback<T> {
     private lateinit var update: (RateListResult) -> Unit
@@ -27,7 +27,7 @@ class RetrofitService<T: EnvironmentResponseMapper> (
         val rateListResult = if (body == null) {
             RateListResult.Error(RateListResult.ErrorCode.SERVER_ERROR)
         } else {
-            if(body.isEmpty()) {
+            if (body.isEmpty()) {
                 RateListResult.Empty
             } else {
                 RateListResult.Success(body.toRateResponse())

@@ -1,11 +1,12 @@
 package com.balsdon.ratesapp.offlinemock.dataBroker
 
 import com.balsdon.ratesapp.dataBroker.RateListResult
+import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.model.RateResponse
 import com.balsdon.ratesapp.service.ApiService
 import java.util.*
 
-class DebugMockService() : ApiService {
+class DebugMockService : ApiService {
     companion object {
         const val RANDOM_MIN = 0.0
         const val RANDOM_MAX = 999.0
@@ -62,8 +63,8 @@ class DebugMockService() : ApiService {
             RateResponse(
                 currencyCode, codeList
                     .filter { code -> code != currencyCode }
-                    .map { code -> code to randomDouble() }
-                    .toMap()
+                    .map { code -> RateItem(code , randomDouble()) }
+                    .toList()
             )
         )
 
