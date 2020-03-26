@@ -4,7 +4,7 @@
 
 ## Written by Quintin Balsdon
 
-This Android App gets a list of currency rates from a data source and renders them on a screen
+This Android App gets a list of currency rates from a data source and renders them on a screen. The user can modify the input on the top item and the other rates will automatically adjust. If the user clicks on any element except the top element, that element will become the top element
 
 ## Architecture
 The app uses a mixture of [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) and [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter), depending on necessity.
