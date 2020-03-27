@@ -7,7 +7,7 @@ on:
       - release*
 
 jobs:
-  test:
+  unittest:
     name: Run Unit Tests
     runs-on: ubuntu-18.04
 
@@ -19,3 +19,11 @@ jobs:
         java-version: 1.8
     - name: Unit tests
       run: bash ./gradlew test --stacktrace
+
+  espressotest:
+    name: Run Unit Tests
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Espresso tests
+        uses: vgaidarji/android-github-actions-emulator@v1.0.1
