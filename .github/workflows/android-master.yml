@@ -23,7 +23,7 @@ jobs:
       run: bash ./gradlew test --stacktrace
 
   espressotest:
-    name: Run Unit Tests
+    name: Run Espresso Tests
     runs-on: ubuntu-18.04
 
     steps:
