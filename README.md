@@ -29,17 +29,17 @@ There are 3 flavours:
 > Uses a mocked class that generates responses in a programmable sequence. This version of the app has a distinct red notification bar
 
 #### Activity
-[RateListActivity](https://github.com/qbalsdon/currency_list_app/blob/master/app/src/main/java/com/balsdon/ratesapp/view/RateListActivity.kt) uses a [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) called [RatesListViewModel](https://github.com/qbalsdon/currency_list_app/blob/master/app/src/main/java/com/balsdon/ratesapp/view/RateListViewModel.kt) which publishes the results of calls to the service with [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+[RateListActivity](https://github.com/qbalsdon/currency_list_app/blob/master/app/src/main/java/com/balsdon/ratesapp/view/RateListActivity.kt) uses a [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) called [RatesListViewModel](app/src/main/java/com/balsdon/ratesapp/view/viewModel/RateListViewModel.kt) which publishes the results of calls to the service with [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 
 #### View
 The [RateItemView](https://github.com/qbalsdon/currency_list_app/blob/master/app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemView.kt) is a custom Android View that uses [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) to support it's architecture. Since the view itself is a complex object this is where development started. The presenter does not require injection due to its simplicity, and a ViewModel can only be injected view an Activity or Fragment, excluding it from the option.
 
 ## Testing
-Currently the testing has been unit testing only. The Presenters, ViewModels and behavioural elements are all separated from the view and view logic.
+The Presenters, ViewModels and behavioural elements are all separated from the view and view logic. Views are kept as minimal as possible, only where Android [context](https://developer.android.com/reference/android/content/Context) or [lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle) is required. Business logic is tested with unit tests and behaviour is tested with [Espresso](https://developer.android.com/training/testing/espresso) tests
 
 ## CI
-I am using GitHub actions to run tests automatically. Currently the scripts perform the following actions:
-* Build `master` and feature branch on push: ensures the sanity of the branches
+The project uses GitHub actions to run unit tests automatically. Currently the scripts perform the following actions:
+* Build feature branch on push: ensures the sanity of the branch
 * Build `master` and feature branch on pull request: ensures sanity of branches as part of code review process
 * Generate apks on pull request: allows a tester to download debug artifacts of each version of the app for testing. These can be found by clicking on the latest build [here](https://github.com/qbalsdon/currency_list_app/actions?query=workflow%3A%22Android+Pull+Request+%26+Master+CI%22)
 

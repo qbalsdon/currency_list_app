@@ -15,6 +15,8 @@ import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.model.RateItem
+import com.balsdon.ratesapp.view.viewModel.RateListModelFactory
+import com.balsdon.ratesapp.view.viewModel.RateListViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_rate_list.*
 

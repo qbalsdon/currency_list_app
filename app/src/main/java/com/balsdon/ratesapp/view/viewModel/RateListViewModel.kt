@@ -1,18 +1,11 @@
-package com.balsdon.ratesapp.view
+package com.balsdon.ratesapp.view.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.model.RateItem
-
-class RateListModelFactory(private val dataBroker: DataBroker) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return RateListViewModel(dataBroker) as T
-    }
-}
 
 class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
 
@@ -23,13 +16,17 @@ class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
     }
 
     private val rateListResult = MutableLiveData<RateListResult>()
-    private var currentCode = DEFAULT_CODE
+    private var currentCode =
+        DEFAULT_CODE
 
     fun getRateList(): LiveData<RateListResult> = rateListResult
 
     fun unsubscribe() = dataBroker.unsubscribe()
 
-    fun refresh(rateItem: RateItem = RateItem(DEFAULT_CODE, DEFAULT_RATE)) {
+    fun refresh(rateItem: RateItem = RateItem(
+        DEFAULT_CODE,
+        DEFAULT_RATE
+    )) {
         currentCode = rateItem.currencyCode
         dataBroker.subscribeToRates(currentCode) { result ->
             rateListResult.postValue(result)

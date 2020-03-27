@@ -3,7 +3,7 @@ package com.balsdon.ratesapp
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
-import com.balsdon.ratesapp.view.RateListViewModel
+import com.balsdon.ratesapp.view.viewModel.RateListViewModel
 import io.mockk.*
 import org.junit.Rule
 import org.junit.Test
@@ -78,7 +78,8 @@ class RateListViewModelUnitTest {
         })
 
         //when
-        val vm = RateListViewModel(testBroker)
+        val vm =
+            RateListViewModel(testBroker)
         vm.refresh()
         //then
         verifyOrder {
@@ -102,7 +103,8 @@ class RateListViewModelUnitTest {
         })
 
         //when
-        val vm = RateListViewModel(testBroker)
+        val vm =
+            RateListViewModel(testBroker)
         vm.refresh()
         //then
         verifyOrder {

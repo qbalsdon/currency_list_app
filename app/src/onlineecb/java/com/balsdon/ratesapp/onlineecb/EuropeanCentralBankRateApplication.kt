@@ -1,6 +1,5 @@
 package com.balsdon.ratesapp.onlineecb
 
-import com.balsdon.ratesapp.RateApplication
 import com.balsdon.ratesapp.RetrofitRateApplication
 import com.balsdon.ratesapp.onlineecb.dataBroker.EuropeanCentralBankRateService
 import com.balsdon.ratesapp.onlineecb.model.EuropeanCentralBankResponse

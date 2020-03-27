@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-abstract class RetrofitRateApplication<T, V: EnvironmentResponseMapper>: RateApplication<T, V>() {
+abstract class RetrofitRateApplication<T, V: EnvironmentResponseMapper>: RateApplication<T>() {
     abstract fun getServiceClass(): Class<T>
     abstract fun createRateServiceCommand(service: T): RateServiceCommand<V>
 
