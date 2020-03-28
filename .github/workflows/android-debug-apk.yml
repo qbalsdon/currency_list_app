@@ -26,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-offlinemock-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-offlinemock-debug.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-offlinemock.apk
 
       - name: Build Euro Central Bank debug APK
         run: bash ./gradlew assembleOnlineecbDebug --stacktrace
@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-onlineecb-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-onlineecb-debug.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-onlineecb.apk
 
       - name: Build Production debug APK
         run: bash ./gradlew assembleProductionDebug --stacktrace
@@ -44,5 +44,5 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-production-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-production-debug.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-production.apk
 
