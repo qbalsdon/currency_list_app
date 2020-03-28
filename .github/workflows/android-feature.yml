@@ -21,20 +21,27 @@ jobs:
       run: bash ./gradlew test --stacktrace
 
   espressotest:
+    name: Run Espresso Tests
     runs-on: macos-latest
-      strategy:
-        matrix:
-          api-level: 23
-          target: default
-      steps:
-        - name: checkout
-          uses: actions/checkout@v2
 
-        - name: run tests
-          uses: reactivecircus/android-emulator-runner@v2
-          with:
-            api-level: ${{ matrix.api-level }}
-            target: ${{ matrix.target }}
-            arch: x86_64
-            profile: Nexus 6
-            script: ./gradlew connectedCheck
+    steps:
+    - uses: actions/checkout@v1
+    - name: set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Android Emulator Runner
+      uses: ReactiveCircus/android-emulator-runner@v2.6.0
+      with:
+        api-level: 23
+        #target: # optional, default is default
+        #arch: # optional, default is x86
+        #profile: # optional - Hardware profile used for creating the AVD - e.g. `Nexus 6`.
+        # command-line options used when launching the emulator - e.g. `-no-window -no-snapshot -camera-back emulated`.
+        #emulator-options: # optional, default is -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+        # whether to disable animations - true or false
+        disable-animations: true # optional, default is true
+        # build number of a specific version of the emulator binary to use e.g. `6061023` for emulator v29.3.0.0.
+        #emulator-build: # optional
+        # custom script to run - e.g. `./gradlew connectedCheck`
+        script: ./gradlew connectedCheck
