@@ -10,7 +10,7 @@ on:
 
 jobs:
   offlinemockapk:
-    name: Generate Offline Mock Debug APK
+    name: Generate Debug APKs
     runs-on: ubuntu-18.04
 
     steps:
@@ -26,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-offlinemock-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-offlinemock.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-offlinemock-debug.apk
 
       - name: Build Euro Central Bank debug APK
         run: bash ./gradlew assembleOnlineecbDebug --stacktrace
@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-onlineecb-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-onlineecb.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-onlineecb-debug.apk
 
       - name: Build Production debug APK
         run: bash ./gradlew assembleProductionDebug --stacktrace
@@ -44,5 +44,5 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-production-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-production.apk
+          path: app/build/outputs/apk/offlinemock/debug/app-production-debug.apk
 
