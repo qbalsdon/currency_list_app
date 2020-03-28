@@ -5,7 +5,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
+import com.balsdon.ratesapp.ControlledActivityTestRule
 import com.balsdon.ratesapp.EspressoApplication
 import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.TestRunner.Companion.assertHeaderHas
@@ -20,8 +20,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RateListActivityEntryBehaviourInstrumentedTest {
     @get:Rule
-    var activityRule: ActivityTestRule<RateListActivity> =
-        ActivityTestRule(RateListActivity::class.java)
+    var activityRule: ControlledActivityTestRule<RateListActivity> =
+        ControlledActivityTestRule(RateListActivity::class.java)
 
     //Assert we're testing with the right application
     @Test
@@ -35,6 +35,8 @@ class RateListActivityEntryBehaviourInstrumentedTest {
 
     @Test
     fun recyclerViewClickOnItemChangesMain() {
+        activityRule.relaunchActivity()
+
         onView(withId(R.id.currency_list))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RateListAdapter.RateItemViewHolder>(

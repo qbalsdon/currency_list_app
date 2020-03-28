@@ -38,8 +38,4 @@ class RateListViewModel(private val dataBroker: DataBroker)  : ViewModel() {
             }
         }
     }
-
-    init {
-        refresh()
-    }
 }

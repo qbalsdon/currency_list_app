@@ -82,6 +82,15 @@ class TestRunner : AndroidJUnitRunner() {
                 EspressoTestsMatchers.withDrawable(drawableId)
             )
         }
+
+        fun assertDefaultStatus() {
+            assertHeaderHas("EUR", "Euro", "1.00", R.drawable.ic_european_union)
+
+            assertListItemHas(3, "CAD", "Canadian Dollar", "6.00", R.drawable.ic_canada)
+            assertListItemHas(4, "CHF", "Swiss Franc", "8.00", R.drawable.ic_switzerland)
+            assertListItemHas(5, "CNY", "Chinese Yuan", "10.00", R.drawable.ic_china)
+            assertListItemHas(6, "CZK", "Czech Koruna", "12.00", R.drawable.ic_czech_republic)
+        }
     }
 
     @Throws(
