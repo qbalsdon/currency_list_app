@@ -3,7 +3,7 @@ package com.balsdon.ratesapp
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
-import com.balsdon.ratesapp.view.RateListViewModel
+import com.balsdon.ratesapp.view.viewModel.RateListViewModel
 import io.mockk.*
 import org.junit.Rule
 import org.junit.Test
@@ -20,7 +20,7 @@ class RateListViewModelUnitTest {
         every { brokerMock.subscribeToRates(any(), any()) } just runs
 
         //when
-        RateListViewModel(brokerMock)
+        RateListViewModel(brokerMock).refresh()
 
         //then
         verify(exactly = 1) { brokerMock.subscribeToRates(any(), any()) }
@@ -38,7 +38,7 @@ class RateListViewModelUnitTest {
         })
 
         //when
-        RateListViewModel(testBroker)
+        RateListViewModel(testBroker).refresh()
 
         //then
         verify(exactly = 1) { testBroker.subscribeToRates(any(), any()) }
@@ -58,7 +58,7 @@ class RateListViewModelUnitTest {
         })
 
         //when
-        RateListViewModel(testBroker)
+        RateListViewModel(testBroker).refresh()
 
         //then
         verify(exactly = 1) { testBroker.subscribeToRates(any(), any()) }
@@ -78,7 +78,9 @@ class RateListViewModelUnitTest {
         })
 
         //when
-        val vm = RateListViewModel(testBroker)
+        val vm =
+            RateListViewModel(testBroker)
+        vm.refresh()
         vm.refresh()
         //then
         verifyOrder {
@@ -102,7 +104,9 @@ class RateListViewModelUnitTest {
         })
 
         //when
-        val vm = RateListViewModel(testBroker)
+        val vm =
+            RateListViewModel(testBroker)
+        vm.refresh()
         vm.refresh()
         //then
         verifyOrder {

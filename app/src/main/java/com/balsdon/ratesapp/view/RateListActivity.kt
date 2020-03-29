@@ -15,6 +15,8 @@ import com.balsdon.ratesapp.dataBroker.DataBroker
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.model.RateItem
+import com.balsdon.ratesapp.view.viewModel.RateListModelFactory
+import com.balsdon.ratesapp.view.viewModel.RateListViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_rate_list.*
 
@@ -59,10 +61,25 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
 
         rate_list_base.apply {
             enableTextEntry()
-            setRate(RateItem(RateListViewModel.DEFAULT_CODE, RateListViewModel.DEFAULT_RATE))
             setMultiplierChanged { rateListAdapter.updateMultiplier() }
             setMaxInputLimit(RateListViewModel.MAX_INPUT_LENGTH)
         }
+    }
+
+    override fun onResume() {
+        //TODO: Fix this - hardcoded for testing
+        RateItem("EUR", 1.0).apply {
+            rate_list_base.setCurrencyRate("1.0")
+            rate_list_base.setRate(this)
+            viewModel.refresh(this)
+        }
+
+        super.onResume()
+    }
+
+    override fun onPause() {
+        viewModel.unsubscribe()
+        super.onPause()
     }
 
     private fun errorCodeToStringResource(code: RateListResult.ErrorCode): Int =
@@ -94,6 +111,7 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     }
 
     private fun updateView(result: RateListResult.Success) {
+
         rate_list_splash_image.visibility = View.GONE
         rate_list_loading_progress.visibility = View.GONE
         rate_list_base.visibility = View.VISIBLE

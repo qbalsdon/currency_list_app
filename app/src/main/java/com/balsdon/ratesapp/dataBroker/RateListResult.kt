@@ -6,7 +6,6 @@ sealed class RateListResult {
     enum class ErrorCode {
         SERVER_ERROR,
         TIMEOUT_ERROR,
-        REQUEST_ERROR,
         GENERIC_ERROR
     }
 
