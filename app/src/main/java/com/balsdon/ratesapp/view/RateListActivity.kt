@@ -1,6 +1,7 @@
 package com.balsdon.ratesapp.view
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
@@ -22,6 +23,12 @@ import kotlinx.android.synthetic.main.activity_rate_list.*
 
 class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     SubscribesToObservers {
+
+    companion object {
+        const val PREF_CURRENCY_CODE = "PREF_CURRENCY_CODE"
+        const val PREF_CURRENCY_RATE = "PREF_CURRENCY_RATE"
+        const val DEFAULT_START_RATE = "1.00"
+    }
 
     private lateinit var dataBroker: DataBroker
 
@@ -67,17 +74,37 @@ class RateListActivity : AppCompatActivity(), RequiresDataBroker,
     }
 
     override fun onResume() {
-        //TODO: Fix this - hardcoded for testing
-        RateItem("EUR", 1.0).apply {
-            rate_list_base.setCurrencyRate("1.0")
-            rate_list_base.setRate(this)
-            viewModel.refresh(this)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        if (prefs.contains(PREF_CURRENCY_CODE) && prefs.contains(PREF_CURRENCY_RATE)) {
+            prefs.apply {
+                val code = getString(PREF_CURRENCY_CODE, "") ?: ""
+                val rate = getFloat(PREF_CURRENCY_RATE, -1f).toDouble()
+                RateItem(code, rate).apply {
+                    rate_list_base.setCurrencyRate(rate.toString())
+                    rate_list_base.setRate(this)
+                    viewModel.refresh(this)
+
+                }
+            }
+        } else {
+            rate_list_base.setCurrencyRate(DEFAULT_START_RATE)
+            viewModel.refresh()
         }
 
         super.onResume()
     }
 
     override fun onPause() {
+        val item = rate_list_base.getRateItem()
+        PreferenceManager
+            .getDefaultSharedPreferences(this)
+            .edit()
+            .apply {
+                putString(PREF_CURRENCY_CODE, item.currencyCode)
+                putFloat(PREF_CURRENCY_RATE, item.rate.toFloat())
+                apply()
+            }
         viewModel.unsubscribe()
         super.onPause()
     }

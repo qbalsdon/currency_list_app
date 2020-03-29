@@ -4,11 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.view.View
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.runner.AndroidJUnitRunner
 import com.balsdon.ratesapp.matchers.EspressoTestsMatchers
 import com.balsdon.ratesapp.matchers.RecyclerViewMatcher
+import com.balsdon.ratesapp.view.RateListAdapter
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 
@@ -90,6 +93,24 @@ class TestRunner : AndroidJUnitRunner() {
             assertListItemHas(4, "CHF", "Swiss Franc", "8.00", R.drawable.ic_switzerland)
             assertListItemHas(5, "CNY", "Chinese Yuan", "10.00", R.drawable.ic_china)
             assertListItemHas(6, "CZK", "Czech Koruna", "12.00", R.drawable.ic_czech_republic)
+        }
+
+        fun resetToEuro() {
+            Espresso.onView(ViewMatchers.withId(R.id.currency_list))
+                .perform(
+                    RecyclerViewActions.actionOnItemAtPosition<RateListAdapter.RateItemViewHolder>(
+                        0,
+                        ViewActions.click()
+                    )
+                )
+            Espresso.onView(
+                CoreMatchers.allOf(
+                    ViewMatchers.withId(R.id.list_item_rate_currency_rate),
+                    ViewMatchers.isDescendantOfA(ViewMatchers.withId(R.id.rate_list_base))
+                )
+            ).perform(ViewActions.replaceText("1.00"))
+
+            assertHeaderHas("EUR", "Euro", "1.00", R.drawable.ic_european_union)
         }
     }
 
