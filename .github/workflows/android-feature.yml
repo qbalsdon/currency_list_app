@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: JDK ${{ matrix.java_version }}
+    name: Run Test Suite (Unit and Instrumnted) [JDK ${{ matrix.java_version }}]
     runs-on: macOS-latest
     strategy:
       matrix:
