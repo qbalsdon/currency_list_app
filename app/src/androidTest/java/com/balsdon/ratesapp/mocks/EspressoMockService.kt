@@ -1,11 +1,11 @@
-package com.balsdon.ratesapp
+package com.balsdon.ratesapp.mocks
 
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.model.RateResponse
 import com.balsdon.ratesapp.service.ApiService
 
-class EspressoStubService : ApiService {
+class EspressoMockService : ApiService {
     companion object {
         val allCountryCodes = listOf(
             "EUR",
@@ -44,7 +44,13 @@ class EspressoStubService : ApiService {
 
         val demoCountryCodes = listOf("USD", "EUR", "SEK", "CAD")
     }
-    private var stepCounter = 0
+
+    enum class ResultOption {
+        ERROR, EMPTY, SUCCESS_ALL, SUCCESS_DEMO
+    }
+
+    private var nextResultState =
+        ResultOption.SUCCESS_ALL //default state
 
     private fun generateSuccessResult(currencyCode: String, codeList: List<String>) =
         RateListResult.Success(
@@ -59,11 +65,27 @@ class EspressoStubService : ApiService {
     private fun generateErrorResult() =
         RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR)
 
+    private fun generateEmptyResult() =
+        RateListResult.Empty
 
     override fun fetchRates(
         currencyCode: String,
         update: (RateListResult) -> Unit
     ) {
-        update.invoke(generateSuccessResult(currencyCode, allCountryCodes))
+        update.invoke(
+        when (nextResultState) {
+            ResultOption.ERROR -> generateErrorResult()
+            ResultOption.EMPTY -> generateEmptyResult()
+            ResultOption.SUCCESS_DEMO -> generateSuccessResult(currencyCode,
+                demoCountryCodes
+            )
+            ResultOption.SUCCESS_ALL -> generateSuccessResult(currencyCode,
+                allCountryCodes
+            )
+        })
+    }
+
+    fun setNextResult(desiredResult: ResultOption) {
+        nextResultState = desiredResult
     }
 }
