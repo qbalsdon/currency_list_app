@@ -22,12 +22,4 @@ jobs:
     - name: Unit tests
       run: bash ./gradlew test --stacktrace
 
-  espressotest:
-    name: Run Espresso Tests
-    runs-on: ubuntu-18.04
-
-    steps:
-      - name: Espresso tests
-        uses: vgaidarji/android-github-actions-emulator@v1.0.1
-
 

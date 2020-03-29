@@ -19,30 +19,30 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build offline mock debug APK
+      - name: Build Offline Mock debug APK
         run: bash ./gradlew assembleOfflinemockDebug --stacktrace
 
-      - name: Upload APK
+      - name: Upload Offline Mock APK
         uses: actions/upload-artifact@v1
         with:
           name: app-offlinemock-debug
           path: app/build/outputs/apk/offlinemock/debug/app-offlinemock-debug.apk
 
-      - name: Build Euro Central Bank debug APK
+      - name: Build Euro Central Bank Debug APK
         run: bash ./gradlew assembleOnlineecbDebug --stacktrace
 
-      - name: Upload APK
+      - name: Upload ECP APK
         uses: actions/upload-artifact@v1
         with:
           name: app-onlineecb-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-onlineecb-debug.apk
+          path: app/build/outputs/apk/onlineecb/debug/app-onlineecb-debug.apk
 
-      - name: Build Production debug APK
+      - name: Build Production Debug APK
         run: bash ./gradlew assembleProductionDebug --stacktrace
 
-      - name: Upload APK
+      - name: Upload Production APK
         uses: actions/upload-artifact@v1
         with:
           name: app-production-debug
-          path: app/build/outputs/apk/offlinemock/debug/app-production-debug.apk
+          path: app/build/outputs/apk/production/debug/app-production-debug.apk
 

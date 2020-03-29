@@ -6,6 +6,9 @@ on:
       - master
       - release*
 
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -41,22 +44,22 @@ jobs:
         # Initial gradle configuration, install dependencies, etc
         run: ./gradlew help
 
-      - name: Build project
+      - name: Build Project
         run: ./gradlew assemble --stacktrace
 
-      - name: Run unit tests
+      - name: Run Unit Tests
         run: ./gradlew test --stacktrace
 
-      - name: Run instrumentation tests
+      - name: Run Instrumentation Tests
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.3
         with:
           cmd: ./gradlew connectedCheck --stacktrace
-          api: 18
+          api: 23
           tag: default
           abi: x86
 
-      - name: Reclaim memory
+      - name: Reclaim Memory
         run: ./gradlew --stop && jps|grep -E 'KotlinCompileDaemon|GradleDaemon'| awk '{print $1}'| xargs kill -9
 
-      - name: Final checks
+      - name: Final Checks
         run: ./gradlew check --stacktrace
