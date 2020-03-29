@@ -10,6 +10,7 @@ class RateItemPresenter(private val viewable: RateItemViewable) {
     }
 
     private var baseRate: Double = 1.0
+    private var data: RateItem = RateItem("", 1.0)
 
     private fun scaledRate(rate: Double) : String {
         val rateTimesMultiplier = rate * multiplier
@@ -24,6 +25,7 @@ class RateItemPresenter(private val viewable: RateItemViewable) {
     }
 
     fun setCurrency(rateItem: RateItem) {
+        data = rateItem
         viewable.setCurrencyCode(rateItem.currencyCode)
         viewable.setIcon(rateItem.getFlagIconResource())
         viewable.setCurrencyName(rateItem.getCurrencyNameResource())
@@ -33,4 +35,6 @@ class RateItemPresenter(private val viewable: RateItemViewable) {
         multiplier = text.toDoubleOrNull() ?: 0.0
         viewable.getMultiplierChanged().invoke()
     }
+
+    fun getRateItem(): RateItem = data
 }

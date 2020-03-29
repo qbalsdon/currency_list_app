@@ -11,6 +11,10 @@ class EspressoMockDataBroker(private val service: ApiService) : DataBroker {
     private lateinit var currencyCode: String
     private lateinit var updateDelegate: (RateListResult) -> Unit
 
+    override fun subscribeToRates(update: (RateListResult) -> Unit) {
+        subscribeToRates("EUR", update)
+    }
+
     override fun subscribeToRates(currencyCode: String, update: (RateListResult) -> Unit) {
         this.currencyCode = currencyCode
         this.updateDelegate = update

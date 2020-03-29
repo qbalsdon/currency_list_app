@@ -71,6 +71,11 @@ class DebugMockService : ApiService {
     private fun generateErrorResult() =
         RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR)
 
+    override fun fetchRates(
+        update: (RateListResult) -> Unit
+    ) {
+       fetchRates("EUR", update)
+    }
 
     override fun fetchRates(
         currencyCode: String,

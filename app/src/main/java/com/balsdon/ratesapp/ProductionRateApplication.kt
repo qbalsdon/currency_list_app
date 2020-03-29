@@ -7,5 +7,5 @@ import com.balsdon.ratesapp.service.RateServiceCommand
 class ProductionRateApplication : RetrofitRateApplication<RevolutRateService, RevolutRateResponse>() {
     override fun getServiceClass() = RevolutRateService::class.java
     override fun createRateServiceCommand(service: RevolutRateService) =
-        RateServiceCommand(service::getRates)
+        RateServiceCommand(ProductionCallbackGenerator(service))
 }

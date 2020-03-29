@@ -9,6 +9,20 @@ import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
+class TestApiService(private val result: RateListResult = RateListResult.Success(mockk()), private val delay: Long = 0L,private val repeat: Int = 1): ApiService {
+    override fun fetchRates(update: (RateListResult) -> Unit) {
+        if (delay > 0) {
+            Thread.sleep(delay)
+        }
+        for (i in 1..repeat)
+            update.invoke(result)
+    }
+
+    override fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit) {
+        fetchRates(update)
+    }
+}
+
 class ScheduledDataBrokerUnitTest {
     companion object{
         private const val DELAY = 1
@@ -20,11 +34,7 @@ class ScheduledDataBrokerUnitTest {
         //given
         val seconds = 5
 
-        val service = object:ApiService{
-            override fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit) {
-                update.invoke(RateListResult.Success(mockk()))
-            }
-        }
+        val service = TestApiService()
         val broker = ScheduledDataBroker(service, DELAY)
 
         var count = 0
@@ -45,12 +55,7 @@ class ScheduledDataBrokerUnitTest {
         //given
         val seconds = 3
 
-        val service = spyk(object:ApiService{
-            override fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit) {
-                Thread.sleep(ONE_SECOND)
-                update.invoke(RateListResult.Success(mockk()))
-            }
-        })
+        val service = spyk(TestApiService(delay = ONE_SECOND))
         val broker = ScheduledDataBroker(service, DELAY)
 
         var count = 0
@@ -70,12 +75,10 @@ class ScheduledDataBrokerUnitTest {
     @Test
     fun scheduledDataBrokerNotifiesOnlyOneError() {
         //given
-        val service = spyk(object : ApiService {
-            override fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit) {
-                update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
-                update.invoke(RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR))
-            }
-        })
+        val service = spyk(TestApiService(
+            result = RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR),
+            repeat = 2
+        ))
         val broker = spyk(ScheduledDataBroker(service, DELAY))
         var count = 0
         //when

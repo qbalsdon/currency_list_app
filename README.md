@@ -42,6 +42,7 @@ The project uses GitHub actions to run unit tests automatically. Currently the s
 * Build feature branch on push: ensures the sanity of the branch
 * Build `master` and feature branch on pull request: ensures sanity of branches as part of code review process
 * Generate apks on pull request: allows a tester to download debug artifacts of each version of the app for testing. These can be found by clicking on the latest build [here](https://github.com/qbalsdon/currency_list_app/actions?query=workflow%3A%22Android+Pull+Request+%26+Master+CI%22)
+* TODO: Get Instrumentation tests running on CI - the process is under development
 
 ## Icons
 * App icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [Flaticon](https://www.flaticon.com/)

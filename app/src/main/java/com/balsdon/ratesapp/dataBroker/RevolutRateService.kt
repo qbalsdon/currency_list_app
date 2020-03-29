@@ -7,5 +7,8 @@ import retrofit2.http.Query
 
 interface RevolutRateService {
     @GET("api/android/latest")
-    fun getRates(@Query("base") base: String): Call<RevolutRateResponse>
+    fun getRatesWith(): Call<RevolutRateResponse>
+
+    @GET("api/android/latest")
+    fun getRatesWith(@Query("base") baseCurrencyCode: String): Call<RevolutRateResponse>
 }

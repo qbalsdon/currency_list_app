@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 
@@ -24,21 +25,22 @@ class DrawableMatcher internal constructor(private val expectedId: Int) :
         if (target !is ImageView) {
             return false
         }
-        val imageView: ImageView = target as ImageView
+        val imageView: ImageView = target
         if (expectedId == EMPTY) {
             return imageView.drawable == null
         }
         if (expectedId == ANY) {
             return imageView.drawable != null
         }
-        val resources: Resources = target.getContext().getResources()
-        val expectedDrawable: Drawable =
-            resources.getDrawable(expectedId)
+        val resources: Resources = target.context.resources
+        val expectedDrawable=
+            ContextCompat.getDrawable(imageView.context, expectedId)
         resourceName = resources.getResourceEntryName(expectedId)
         if (expectedDrawable == null) {
             return false
         }
-        val bitmap = getBitmap(imageView.getDrawable())
+
+        val bitmap = getBitmap(imageView.drawable)
         val otherBitmap = getBitmap(expectedDrawable)
         return bitmap.sameAs(otherBitmap)
     }

@@ -22,6 +22,8 @@ class RateItemView(context: Context, attributeSet: AttributeSet) :
         inflate(context, R.layout.item_rate, this)
     }
 
+    fun getRateItem(): RateItem = presenter.getRateItem()
+
     private var onMultiplierChanged: () -> Unit = {}
 
     fun setRate(rateItem: RateItem) =

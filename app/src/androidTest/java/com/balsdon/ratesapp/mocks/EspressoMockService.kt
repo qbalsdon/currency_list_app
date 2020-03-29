@@ -69,6 +69,12 @@ class EspressoMockService : ApiService {
         RateListResult.Empty
 
     override fun fetchRates(
+        update: (RateListResult) -> Unit
+    ) {
+        fetchRates("EUR", update)
+    }
+
+    override fun fetchRates(
         currencyCode: String,
         update: (RateListResult) -> Unit
     ) {

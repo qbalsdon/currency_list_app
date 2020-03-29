@@ -7,5 +7,8 @@ import retrofit2.http.Query
 
 interface EuropeanCentralBankRateService {
     @GET("latest")
-    fun getRates(@Query("base") base: String): Call<EuropeanCentralBankResponse>
+    fun getRates(): Call<EuropeanCentralBankResponse>
+
+    @GET("latest")
+    fun getRatesWith(@Query("base") base: String): Call<EuropeanCentralBankResponse>
 }

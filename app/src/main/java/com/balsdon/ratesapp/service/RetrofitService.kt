@@ -11,6 +11,13 @@ class RetrofitService<T : EnvironmentResponseMapper>(
 ) : ApiService, Callback<T> {
     private lateinit var update: (RateListResult) -> Unit
 
+    override fun fetchRates(update: (RateListResult) -> Unit) {
+        this.update = update
+        service
+            .getRateCall()
+            .enqueue(this)
+    }
+
     override fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit) {
         this.update = update
         service

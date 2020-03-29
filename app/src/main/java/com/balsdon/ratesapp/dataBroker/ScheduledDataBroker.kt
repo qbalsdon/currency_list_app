@@ -24,6 +24,22 @@ class ScheduledDataBroker(private val service: ApiService, private val intervalD
         }
     }
 
+    override fun subscribeToRates(update: (RateListResult) -> Unit) {
+        hasError = AtomicBoolean(false)
+        currentFuture = scheduler.scheduleWithFixedDelay(
+            Runnable {
+                service.fetchRates(
+                    update = {
+                        updateSafely(it, update)
+                    }
+                )
+            },
+            INITIAL_DELAY,
+            intervalDelaySeconds.toLong(),
+            TIME_UNIT
+        )
+    }
+
     override fun subscribeToRates(currencyCode: String, update: (RateListResult) -> Unit) {
         hasError = AtomicBoolean(false)
         currentFuture = scheduler.scheduleWithFixedDelay(
