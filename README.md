@@ -30,7 +30,7 @@ Dependencies are injected via the Application object.
 
 ![Application Architecture: Data Broker](Architecture_DataBroker.png "Application Architecture: Data Broker")
 
-The DataBroker is the interface for rendering data from a data source, also known as th [façade pattern](https://en.wikipedia.org/wiki/Facade_pattern). The aim of the pattern is to allow different sources of data to be injected by developers for various reasons:
+The DataBroker is the interface for rendering data from a data source, also known as the [façade pattern](https://en.wikipedia.org/wiki/Facade_pattern). The aim of the pattern is to allow different sources of data to be injected by developers for various reasons:
 * Asynchronous fetch: do not hang the UI while the data is being retrieved, as in the case of complex database or web lookups
 * Various sources: allow developers a platform- and app-agnostic mechanism for creating new layers, whether it is for testing or build variants.
 
@@ -40,16 +40,18 @@ The DataBroker is the interface for rendering data from a data source, also know
 
 The [RateItemView](app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemView.kt) uses the [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) architecture pattern. This is due to the lack of necessity for the same kind of "observer-subscriber" model provided by Android ViewModels. This also simplifies the relationship of the item as it is to exist in the [RateListAdapter](app/src/main/java/com/balsdon/ratesapp/view/RateListAdapter.kt).
 
-#### There are 3 build variants of the application:
+## Build variants
 
-##### 1. production:
+Each variant has a distinct app name and colour to uniquely identify them.
+
+#### 1. production <font style="color:#808080">[&#9632;]</font>:
 Connects to the web endpoint using [RetroFit](https://square.github.io/retrofit/)
 
-##### 2. onlineecb:
+#### 2. onlineecb <font style="color:#FFEB3B">[&#9632;]</font>:
 Connects to the European Central Bank web endpoint ([https://exchangeratesapi.io/](https://exchangeratesapi.io/)) using [RetroFit](https://square.github.io/retrofit/). The purpose of this was to demonstrate the codes ability to use different environments.
 
-##### 3. offlinemock
-Uses a mocked class that generates responses in a programmable sequence. This version of the app has a distinct red notification bar
+#### 3. offlinemock <font style="color:#8BC34A">[&#9632;]</font>:
+Uses a mocked class that generates responses in a programmable sequence.
 
 #### Activity
 [RateListActivity](https://github.com/qbalsdon/currency_list_app/blob/master/app/src/main/java/com/balsdon/ratesapp/view/RateListActivity.kt) uses a [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) called [RatesListViewModel](app/src/main/java/com/balsdon/ratesapp/view/viewModel/RateListViewModel.kt) which publishes the results of calls to the service with [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
@@ -65,7 +67,7 @@ The project uses GitHub actions to run unit tests automatically. Currently the s
 * Build feature branch on push: ensures the sanity of the branch
 * Build `master` and feature branch on pull request: ensures sanity of branches as part of code review process
 * Generate apks on pull request: allows a tester to download debug artifacts of each version of the app for testing. These can be found by clicking on the latest build [here](https://github.com/qbalsdon/currency_list_app/actions?query=workflow%3A%22Android+Pull+Request+%26+Master+CI%22)
-* TODO: Get Instrumentation tests running on CI - the process is under development
+* TODO: Get Instrumentation tests running on CI - the process is under development and is currently listed under [issues](https://github.com/qbalsdon/currency_list_app/issues/16)
 
 ## Icons
 * App icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [Flaticon](https://www.flaticon.com/)
