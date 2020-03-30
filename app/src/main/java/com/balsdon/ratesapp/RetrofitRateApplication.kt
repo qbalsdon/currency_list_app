@@ -24,13 +24,13 @@ abstract class RetrofitRateApplication<T, V: EnvironmentResponseMapper>: RateApp
 
     private val rateServiceCommand by lazy {
         val service = Retrofit.Builder()
-            .baseUrl(getString(R.string.rates_endpoint))
+            .baseUrl(BuildConfig.ENDPOINT)
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient
                     .Builder()
-                    .readTimeout(READ_TIMEOUT, TIME_UNIT)
-                    .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
+                    .readTimeout(BuildConfig.READ_TIMEOUT_SECONDS, TIME_UNIT)
+                    .connectTimeout(BuildConfig.CONNECT_TIMEOUT, TIME_UNIT)
                     .build()
             )
             .build()
@@ -45,7 +45,7 @@ abstract class RetrofitRateApplication<T, V: EnvironmentResponseMapper>: RateApp
 
     override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
         if (activity is RequiresDataBroker) {
-            activity.setDataBroker(ScheduledDataBroker(service, resources.getInteger(R.integer.refresh_rate)))
+            activity.setDataBroker(ScheduledDataBroker(service, BuildConfig.REFRESH_RATE_SECONDS))
         }
     }
 }
