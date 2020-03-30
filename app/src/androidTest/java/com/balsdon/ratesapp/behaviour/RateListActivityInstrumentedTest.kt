@@ -22,7 +22,7 @@ class RateListActivityInstrumentedTest: BaseRatesAppEspressoTest() {
     @Test
     fun displaysEuroWithRateOfOneOnStart() {
         getNextSuccessAll()
-        onView(withId(R.id.rate_list_title)).check(matches(withText("Rates")))
+        onView(withId(R.id.rate_list_title)).check(matches(withText(R.string.app_title)))
         onView(withId(R.id.rate_list_base)).check(matches(isDisplayed()))
         onView(withId(R.id.currency_list)).check(matches(isDisplayed()))
 
