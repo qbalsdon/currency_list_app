@@ -1,12 +1,15 @@
 package com.balsdon.ratesapp.rateItem
 
 import com.balsdon.ratesapp.model.RateItem
+import com.balsdon.ratesapp.rateItem.flagResource.CountryResourceResolver
 import java.math.BigDecimal
 
 class RateItemPresenter(private val viewable: RateItemViewable) {
     companion object {
         private const val DECIMAL_PLACES = 2
         private var multiplier: Double = 1.0
+
+        lateinit var countryResourceResolver: CountryResourceResolver
     }
 
     private var baseRate: Double = 1.0
@@ -27,8 +30,8 @@ class RateItemPresenter(private val viewable: RateItemViewable) {
     fun setCurrency(rateItem: RateItem) {
         data = rateItem
         viewable.setCurrencyCode(rateItem.currencyCode)
-        viewable.setIcon(rateItem.getFlagIconResource())
-        viewable.setCurrencyName(rateItem.getCurrencyNameResource())
+        viewable.setIcon(countryResourceResolver.getFlagIconResourceFromCode(rateItem.currencyCode))
+        viewable.setCurrencyName(countryResourceResolver.getCurrencyStringResourceFromCode(rateItem.currencyCode))
     }
 
     fun updateUserEntry(text: String) {

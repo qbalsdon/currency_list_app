@@ -15,18 +15,41 @@ This Android App gets a list of currency rates from a data source and renders th
 ## Architecture
 The app uses a mixture of [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) and [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter), depending on necessity.
 
-### Dependency Injection
-Injected via the Application object. They implement an ApiService class that is created once on the Application level and use [ActivityLifecycleCallbacks](https://developer.android.com/reference/android/app/Application.ActivityLifecycleCallbacks) to perform the injection.
+### Application
 
-There are 3 flavours:
-#### 1. production
-> Connects to the web endpoint using [RetroFit](https://square.github.io/retrofit/)
+![Application Architecture](Architecture_Application.png "Application Architecture")
 
-#### 2. onlineecb
-> Connects to the European Central Bank web endpoint ([https://exchangeratesapi.io/](https://exchangeratesapi.io/)) using [RetroFit](https://square.github.io/retrofit/). The purpose of this was to demonstrate the codes ability to use different environments.
+The reason for the relationship is to allow several different environments to exist without conflict. With the current structure its versatility is demonstrated by the addition of the [European Central Bank's API](https://exchangeratesapi.io/) service being injected as a different build variant. This also allows the app to have an "offline" variant which can be programmed for specific responses, and a different implementation is used in the Espresso tests to ensure consistent responses during testing.
 
-#### 3. offlinemock
-> Uses a mocked class that generates responses in a programmable sequence. This version of the app has a distinct red notification bar
+#### Dependency Injection
+Dependencies are injected via the Application object.
+* Activities that require a data broker (for rendering data sources) implement the [RequiresDataBroker](app/src/main/java/com/balsdon/ratesapp/dataBroker/RequiresDataBroker.kt) interface so that the Application can use [ActivityLifecycleCallbacks](https://developer.android.com/reference/android/app/Application.ActivityLifecycleCallbacks) to perform the injection.
+* The object that uses country codes to render name and image resources (which requires Android context) is injected into the [RateItemPresenter](app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemPresenter.kt) object
+
+### Data Broker
+
+![Application Architecture: Data Broker](Architecture_DataBroker.png "Application Architecture: Data Broker")
+
+The DataBroker is the interface for rendering data from a data source, also known as th [façade pattern](https://en.wikipedia.org/wiki/Facade_pattern). The aim of the pattern is to allow different sources of data to be injected by developers for various reasons:
+* Asynchronous fetch: do not hang the UI while the data is being retrieved, as in the case of complex database or web lookups
+* Various sources: allow developers a platform- and app-agnostic mechanism for creating new layers, whether it is for testing or build variants.
+
+### RateItemView
+
+![Application Architecture: RateItemView](Architecture_RateItemView.png "Application Architecture: RateItemView")
+
+The [RateItemView](app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemView.kt) uses the [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) architecture pattern. This is due to the lack of necessity for the same kind of "observer-subscriber" model provided by Android ViewModels. This also simplifies the relationship of the item as it is to exist in the [RateListAdapter](app/src/main/java/com/balsdon/ratesapp/view/RateListAdapter.kt).
+
+#### There are 3 build variants of the application:
+
+##### 1. production:
+Connects to the web endpoint using [RetroFit](https://square.github.io/retrofit/)
+
+##### 2. onlineecb:
+Connects to the European Central Bank web endpoint ([https://exchangeratesapi.io/](https://exchangeratesapi.io/)) using [RetroFit](https://square.github.io/retrofit/). The purpose of this was to demonstrate the codes ability to use different environments.
+
+##### 3. offlinemock
+Uses a mocked class that generates responses in a programmable sequence. This version of the app has a distinct red notification bar
 
 #### Activity
 [RateListActivity](https://github.com/qbalsdon/currency_list_app/blob/master/app/src/main/java/com/balsdon/ratesapp/view/RateListActivity.kt) uses a [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) called [RatesListViewModel](app/src/main/java/com/balsdon/ratesapp/view/viewModel/RateListViewModel.kt) which publishes the results of calls to the service with [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)

@@ -10,10 +10,17 @@ import com.balsdon.ratesapp.service.RetrofitService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
-abstract class RetrofitRateApplication<T, V: EnvironmentResponseMapper>: RateApplication<T>() {
+abstract class RetrofitRateApplication<T, V: EnvironmentResponseMapper>: RateApplication() {
     abstract fun getServiceClass(): Class<T>
     abstract fun createRateServiceCommand(service: T): RateServiceCommand<V>
+
+    companion object {
+        const val READ_TIMEOUT = 5L
+        const val CONNECT_TIMEOUT = 5L
+        val TIME_UNIT = TimeUnit.SECONDS
+    }
 
     private val rateServiceCommand by lazy {
         val service = Retrofit.Builder()
