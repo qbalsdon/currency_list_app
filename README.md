@@ -40,7 +40,7 @@ The DataBroker is the interface for rendering data from a data source, also know
 
 The [RateItemView](app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemView.kt) uses the [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) architecture pattern. This is due to the lack of necessity for the same kind of "observer-subscriber" model provided by Android ViewModels. This also simplifies the relationship of the item as it is to exist in the [RateListAdapter](app/src/main/java/com/balsdon/ratesapp/view/RateListAdapter.kt).
 
-## Build variants
+## Build Variants
 
 Each variant has a distinct app name and colour to uniquely identify them.
 
