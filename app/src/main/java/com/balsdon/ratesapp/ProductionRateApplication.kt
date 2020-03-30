@@ -6,6 +6,6 @@ import com.balsdon.ratesapp.service.RateServiceCommand
 
 class ProductionRateApplication : RetrofitRateApplication<ProductionRetrofitServiceInterface, ProductionRateResponse>() {
     override fun getServiceClass() = ProductionRetrofitServiceInterface::class.java
-    override fun createRateServiceCommand(retrofitServiceInterface: ProductionRetrofitServiceInterface) =
-        RateServiceCommand(ProductionCallbackGenerator(retrofitServiceInterface))
+    override fun createRateServiceCommand(service: ProductionRetrofitServiceInterface) =
+        RateServiceCommand(ProductionCallbackGenerator(service))
 }

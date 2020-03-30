@@ -7,6 +7,6 @@ import com.balsdon.ratesapp.service.RateServiceCommand
 
 class EuropeanCentralBankRateApplication : RetrofitRateApplication<EuropeanCentralBankRateRetroFitServiceInterface, EuropeanCentralBankResponse>() {
     override fun getServiceClass() = EuropeanCentralBankRateRetroFitServiceInterface::class.java
-    override fun createRateServiceCommand(retroFitServiceInterface: EuropeanCentralBankRateRetroFitServiceInterface) =
-        RateServiceCommand(EuropeanCentralBankCallbackGenerator(retroFitServiceInterface))
+    override fun createRateServiceCommand(service: EuropeanCentralBankRateRetroFitServiceInterface) =
+        RateServiceCommand(EuropeanCentralBankCallbackGenerator(service))
 }
