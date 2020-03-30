@@ -10,8 +10,6 @@ import java.util.concurrent.TimeUnit
 
 abstract class RateApplication<T> : Application(), Application.ActivityLifecycleCallbacks {
     companion object {
-        const val READ_TIMEOUT = 5L
-        const val CONNECT_TIMEOUT = 5L
         val TIME_UNIT = TimeUnit.SECONDS
     }
 
