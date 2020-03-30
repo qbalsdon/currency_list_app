@@ -1,6 +1,6 @@
 package com.balsdon.ratesapp.model
 
-data class RevolutRateResponse(val baseCurrency: String, val rates: Map<String, Double>) :
+data class ProductionRateResponse(val baseCurrency: String, val rates: Map<String, Double>) :
     EnvironmentResponseMapper {
 
     override fun toRateResponse() =

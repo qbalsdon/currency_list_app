@@ -1,15 +1,15 @@
 package com.balsdon.ratesapp
 
-import com.balsdon.ratesapp.dataBroker.RevolutRateService
-import com.balsdon.ratesapp.model.RevolutRateResponse
+import com.balsdon.ratesapp.dataBroker.ProductionRetrofitServiceInterface
+import com.balsdon.ratesapp.model.ProductionRateResponse
 import com.balsdon.ratesapp.service.RetrofitCallbackGenerator
 import retrofit2.Call
 
-class ProductionCallbackGenerator(val revolutRateService: RevolutRateService):
-    RetrofitCallbackGenerator<RevolutRateResponse> {
-    override fun createDefaultCall(): Call<RevolutRateResponse> =
-        revolutRateService.getRatesWith()
+class ProductionCallbackGenerator(val productionRetrofitServiceInterface: ProductionRetrofitServiceInterface):
+    RetrofitCallbackGenerator<ProductionRateResponse> {
+    override fun createDefaultCall(): Call<ProductionRateResponse> =
+        productionRetrofitServiceInterface.getRatesWith()
 
-    override fun createCallWith(baseCurrencyCode: String): Call<RevolutRateResponse> =
-        revolutRateService.getRatesWith(baseCurrencyCode)
+    override fun createCallWith(baseCurrencyCode: String): Call<ProductionRateResponse> =
+        productionRetrofitServiceInterface.getRatesWith(baseCurrencyCode)
 }

@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface EuropeanCentralBankRateService {
+interface EuropeanCentralBankRateRetroFitServiceInterface {
     @GET("latest")
     fun getRates(): Call<EuropeanCentralBankResponse>
 

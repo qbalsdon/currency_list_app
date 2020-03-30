@@ -7,7 +7,7 @@ import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
 import com.balsdon.ratesapp.offlinemock.dataBroker.DebugMockService
 
-class RateApplication : RateApplication<DebugMockService>() {
+class OfflineMockApplication : RateApplication() {
     override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
         if (activity is RequiresDataBroker) {
             activity.setDataBroker(ScheduledDataBroker(DebugMockService(), 1))

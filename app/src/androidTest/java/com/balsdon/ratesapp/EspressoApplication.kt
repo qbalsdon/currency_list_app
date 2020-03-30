@@ -6,7 +6,7 @@ import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.mocks.EspressoMockDataBroker
 import com.balsdon.ratesapp.mocks.EspressoMockService
 
-class EspressoApplication : RateApplication<EspressoMockService>() {
+class EspressoApplication : RateApplication() {
 
     private val espressoMockService: EspressoMockService by lazy {
         EspressoMockService()

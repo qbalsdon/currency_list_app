@@ -22,14 +22,38 @@ class RateItemPresenterUnitTest {
 
     @Before
     fun before() {
-        every { mockedResourceResolver.getFlagIconResourceFromCode(any()) } returns IMAGE_CODE
-        every { mockedResourceResolver.getCurrencyStringResourceFromCode(any()) } returns STRING_CODE
-        RateItem.countryResourceResolver = mockedResourceResolver
+        every { mockedResourceResolver.getFlagIconResourceFromCode(RATE_ITEM.currencyCode) } returns IMAGE_CODE
+        every { mockedResourceResolver.getCurrencyStringResourceFromCode(RATE_ITEM.currencyCode) } returns STRING_CODE
+        RateItemPresenter.countryResourceResolver = mockedResourceResolver
 
         every { mockedRateItemView.setCurrencyCode(RATE_ITEM.currencyCode) } just runs
         every { mockedRateItemView.setCurrencyRate(any()) } just runs
         every { mockedRateItemView.setIcon(any()) } just runs
         every { mockedRateItemView.setCurrencyName(any()) } just runs
+    }
+
+    @Test
+    fun rateItemPresenterUsesCurrencyCodeToGetImageIntResource() {
+        //given
+        val rateItemPresenter = RateItemPresenter(mockk(relaxed = true))
+
+        //when
+        rateItemPresenter.setCurrency(RATE_ITEM)
+
+        //then
+        verify(exactly = 1) { mockedResourceResolver.getFlagIconResourceFromCode(RATE_ITEM.currencyCode) }
+    }
+
+    @Test
+    fun rateItemPresenterUsesCurrencyCodeToGetStringIntResource() {
+        //given
+        val rateItemPresenter = RateItemPresenter(mockk(relaxed = true))
+
+        //when
+        rateItemPresenter.setCurrency(RATE_ITEM)
+
+        //then
+        verify(exactly = 1) { mockedResourceResolver.getCurrencyStringResourceFromCode(RATE_ITEM.currencyCode) }
     }
 
     @Test
