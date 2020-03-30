@@ -44,13 +44,13 @@ The [RateItemView](app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemView.
 
 Each variant has a distinct app name and colour to uniquely identify them.
 
-#### 1. production <font style="color:#808080">[&#9632;]</font>:
+#### 1. production <span style="color:#808080">[&#9632;]</span>:
 Connects to the web endpoint using [RetroFit](https://square.github.io/retrofit/)
 
-#### 2. onlineecb <font style="color:#FFEB3B">[&#9632;]</font>:
+#### 2. onlineecb <span style="color:#FFEB3B">[&#9632;]</span>:
 Connects to the European Central Bank web endpoint ([https://exchangeratesapi.io/](https://exchangeratesapi.io/)) using [RetroFit](https://square.github.io/retrofit/). The purpose of this was to demonstrate the codes ability to use different environments.
 
-#### 3. offlinemock <font style="color:#8BC34A">[&#9632;]</font>:
+#### 3. offlinemock <span style="color:#8BC34A">[&#9632;]</span>:
 Uses a mocked class that generates responses in a programmable sequence.
 
 #### Activity
