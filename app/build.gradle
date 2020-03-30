@@ -34,6 +34,11 @@ android {
             versionCode 1
             versionName "1.0.0"
             dimension 'ratesapp'
+
+            buildConfigField "String", "ENDPOINT", "\"https://hiring.revolut.codes\""
+            buildConfigField "int", "REFRESH_RATE_SECONDS", "1"
+            buildConfigField "long", "READ_TIMEOUT_SECONDS", "5"
+            buildConfigField "long", "CONNECT_TIMEOUT", "5"
         }
 
         onlineecb {
@@ -41,6 +46,11 @@ android {
             versionCode 1
             versionName "1.0.0"
             dimension 'ratesapp'
+
+            buildConfigField "String", "ENDPOINT", "\"https://api.exchangeratesapi.io\""
+            buildConfigField "int", "REFRESH_RATE_SECONDS", "10"
+            buildConfigField "long", "READ_TIMEOUT_SECONDS", "5"
+            buildConfigField "long", "CONNECT_TIMEOUT", "5"
         }
 
         offlinemock {
@@ -48,6 +58,11 @@ android {
             versionCode 1
             versionName "0.0.1"
             dimension 'ratesapp'
+
+            buildConfigField "String", "ENDPOINT", "\"[NONE]\""
+            buildConfigField "int", "REFRESH_RATE_SECONDS", "1"
+            buildConfigField "long", "READ_TIMEOUT_SECONDS", "5"
+            buildConfigField "long", "CONNECT_TIMEOUT", "5"
         }
     }
 }
