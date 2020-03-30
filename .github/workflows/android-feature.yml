@@ -50,13 +50,22 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew test --stacktrace
 
-      - name: Run Instrumentation Tests
-        uses: malinskiy/action-android/emulator-run-cmd@release/0.0.3
+#      - name: Run Instrumentation Tests (malinskiy)
+#        uses: malinskiy/action-android/emulator-run-cmd@release/0.0.3
+#        with:
+#          cmd: ./gradlew connectedCheck --stacktrace
+#          api: 23
+#          tag: default
+#          abi: x86
+
+      - name: Run Instrumentation Tests (reactivecircus)
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          cmd: ./gradlew connectedCheck --stacktrace
-          api: 23
-          tag: default
-          abi: x86
+          api-level: 23
+          target: default
+          arch: x86
+          profile: Nexus 6
+          script: ./gradlew connectedCheck --stacktrace
 
       - name: Reclaim Memory
         run: ./gradlew --stop && jps|grep -E 'KotlinCompileDaemon|GradleDaemon'| awk '{print $1}'| xargs kill -9
