@@ -44,7 +44,7 @@ The [RateItemView](app/src/main/java/com/balsdon/ratesapp/rateItem/RateItemView.
 
 Each variant has a distinct app name and colour to uniquely identify them.
 
-#### 1. production <span style="color:#808080">(Grey)</span>:
+#### 1. production <span style="color:#808080">(Grey Status Bar - Blue Icon)</span>:
 Connects to the web endpoint using [RetroFit](https://square.github.io/retrofit/)
 
 #### 2. onlineecb <span style="color:#FFEB3B">(Yellow)</span>:
