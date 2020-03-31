@@ -1,11 +1,11 @@
 package com.balsdon.ratesapp.mocks
 
+import com.balsdon.ratesapp.dataBroker.RateFetcher
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.model.RateResponse
-import com.balsdon.ratesapp.service.ApiService
 
-class EspressoMockService : ApiService {
+class EspressoMockRateFetcher : RateFetcher {
     companion object {
         val allCountryCodes = listOf(
             "EUR",

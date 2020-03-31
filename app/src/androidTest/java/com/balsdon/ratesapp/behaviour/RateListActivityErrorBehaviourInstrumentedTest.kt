@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.balsdon.ratesapp.BaseRatesAppEspressoTest
 import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.TestRunner.Companion.assertDefaultStatus
-import com.balsdon.ratesapp.mocks.EspressoMockService
+import com.balsdon.ratesapp.mocks.EspressoMockRateFetcher
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -18,7 +18,7 @@ class RateListActivityErrorBehaviourInstrumentedTest : BaseRatesAppEspressoTest(
     fun recyclerViewErrorDisplaysSnackbar() {
         assertDefaultStatus()
 
-        espressoApplication.setNextResult(EspressoMockService.ResultOption.ERROR)
+        espressoApplication.setNextResult(EspressoMockRateFetcher.ResultOption.ERROR)
         espressoApplication.getNextResult()
 
         onView(withId(com.google.android.material.R.id.snackbar_text))

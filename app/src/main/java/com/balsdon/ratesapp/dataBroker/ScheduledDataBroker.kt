@@ -1,12 +1,11 @@
 package com.balsdon.ratesapp.dataBroker
 
-import com.balsdon.ratesapp.service.ApiService
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
-class ScheduledDataBroker(private val service: ApiService, private val intervalDelaySeconds: Int) : DataBroker {
+class ScheduledDataBroker(private val rateFetcher: RateFetcher, private val intervalDelaySeconds: Int) : DataBroker {
     companion object {
         private const val THREADS = 1
         private const val INITIAL_DELAY = 0L
@@ -28,7 +27,7 @@ class ScheduledDataBroker(private val service: ApiService, private val intervalD
         hasError = AtomicBoolean(false)
         currentFuture = scheduler.scheduleWithFixedDelay(
             Runnable {
-                service.fetchRates(
+                rateFetcher.fetchRates(
                     update = {
                         updateSafely(it, update)
                     }
@@ -44,7 +43,7 @@ class ScheduledDataBroker(private val service: ApiService, private val intervalD
         hasError = AtomicBoolean(false)
         currentFuture = scheduler.scheduleWithFixedDelay(
             Runnable {
-                service.fetchRates(
+                rateFetcher.fetchRates(
                     currencyCode = currencyCode,
                     update = {
                         updateSafely(it, update)

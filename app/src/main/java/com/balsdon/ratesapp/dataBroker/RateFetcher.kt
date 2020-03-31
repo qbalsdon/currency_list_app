@@ -1,8 +1,6 @@
-package com.balsdon.ratesapp.service
+package com.balsdon.ratesapp.dataBroker
 
-import com.balsdon.ratesapp.dataBroker.RateListResult
-
-interface ApiService {
+interface RateFetcher {
     fun fetchRates(update: (RateListResult) -> Unit)
     fun fetchRates(currencyCode: String, update: (RateListResult) -> Unit)
 }

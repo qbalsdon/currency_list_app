@@ -1,11 +1,11 @@
 package com.balsdon.ratesapp.mocks
 
 import com.balsdon.ratesapp.dataBroker.DataBroker
+import com.balsdon.ratesapp.dataBroker.RateFetcher
 import com.balsdon.ratesapp.dataBroker.RateListResult
-import com.balsdon.ratesapp.service.ApiService
 import java.util.concurrent.atomic.AtomicBoolean
 
-class EspressoMockDataBroker(private val service: ApiService) : DataBroker {
+class EspressoMockDataBroker(private val rateFetcher: RateFetcher) : DataBroker {
     private var hasError: AtomicBoolean = AtomicBoolean(false)
 
     private lateinit var currencyCode: String
@@ -21,7 +21,7 @@ class EspressoMockDataBroker(private val service: ApiService) : DataBroker {
         next()
     }
 
-    fun next() = service.fetchRates(currencyCode, updateDelegate)
+    fun next() = rateFetcher.fetchRates(currencyCode, updateDelegate)
 
     override fun unsubscribe() {
         //ok

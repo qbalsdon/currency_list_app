@@ -1,5 +1,6 @@
 package com.balsdon.ratesapp.service
 
+import com.balsdon.ratesapp.dataBroker.RateFetcher
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.model.EnvironmentResponseMapper
 import retrofit2.Call
@@ -8,7 +9,7 @@ import retrofit2.Response
 
 class RetrofitService<T : EnvironmentResponseMapper>(
     private val service: RateServiceCommand<T>
-) : ApiService, Callback<T> {
+) : RateFetcher, Callback<T> {
     private lateinit var update: (RateListResult) -> Unit
 
     override fun fetchRates(update: (RateListResult) -> Unit) {
