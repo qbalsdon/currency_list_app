@@ -13,7 +13,7 @@ on:
 jobs:
   build:
     name: Run Test Suite (Unit [TODO Instrumented]) [JDK ${{ matrix.java_version }}]
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         java_version: [1.8]
@@ -34,9 +34,6 @@ jobs:
         with:
           java-version: ${{ matrix.java_version }}
 
-      - name: Install Android SDK
-        uses: malinskiy/action-android/install-sdk@release/0.0.3
-
       - name: Gradle Wrapper Validation
         uses: gradle/wrapper-validation-action@v1
 
@@ -49,15 +46,16 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew test --stacktrace
-
-      - name: Run Instrumentation Tests (reactivecircus)
-        uses: reactivecircus/android-emulator-runner@v2.6.1
+      
+      #- name: Install Android SDK
+      #  uses: malinskiy/action-android/install-sdk@release/0.0.3
+        
+      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.5
         with:
-          api-level: 23
-          target: default
-          arch: x86
-          profile: Nexus 6
-          script: ./gradlew connectedCheck --stacktrace
+          cmd: ./gradlew integrationTest
+          api: 23
+          tag: default
+          abi: x86
 
       - name: Reclaim Memory
         run: ./gradlew --stop && jps|grep -E 'KotlinCompileDaemon|GradleDaemon'| awk '{print $1}'| xargs kill -9
