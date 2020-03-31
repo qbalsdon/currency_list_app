@@ -4,20 +4,20 @@ import android.app.Activity
 import android.os.Bundle
 import com.balsdon.ratesapp.dataBroker.RequiresDataBroker
 import com.balsdon.ratesapp.mocks.EspressoMockDataBroker
-import com.balsdon.ratesapp.mocks.EspressoMockService
+import com.balsdon.ratesapp.mocks.EspressoMockRateFetcher
 
 class EspressoApplication : RateApplication() {
 
-    private val espressoMockService: EspressoMockService by lazy {
-        EspressoMockService()
+    private val espressoMockRateFetcher: EspressoMockRateFetcher by lazy {
+        EspressoMockRateFetcher()
     }
 
     private val espressoMockDataBroker: EspressoMockDataBroker by lazy {
-        EspressoMockDataBroker(espressoMockService)
+        EspressoMockDataBroker(espressoMockRateFetcher)
     }
 
-    fun setNextResult(desiredResult: EspressoMockService.ResultOption) {
-        espressoMockService.setNextResult(desiredResult)
+    fun setNextResult(desiredResult: EspressoMockRateFetcher.ResultOption) {
+        espressoMockRateFetcher.setNextResult(desiredResult)
     }
 
     fun getNextResult() {

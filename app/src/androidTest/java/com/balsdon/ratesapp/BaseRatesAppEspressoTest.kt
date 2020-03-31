@@ -1,7 +1,7 @@
 package com.balsdon.ratesapp
 
 import androidx.test.rule.ActivityTestRule
-import com.balsdon.ratesapp.mocks.EspressoMockService
+import com.balsdon.ratesapp.mocks.EspressoMockRateFetcher
 import com.balsdon.ratesapp.view.RateListActivity
 import org.junit.Assert
 import org.junit.Rule
@@ -27,7 +27,7 @@ open class BaseRatesAppEspressoTest {
     }
 
     protected fun getNextSuccessAll() {
-        espressoApplication.setNextResult(EspressoMockService.ResultOption.SUCCESS_ALL)
+        espressoApplication.setNextResult(EspressoMockRateFetcher.ResultOption.SUCCESS_ALL)
         espressoApplication.getNextResult()
     }
 }

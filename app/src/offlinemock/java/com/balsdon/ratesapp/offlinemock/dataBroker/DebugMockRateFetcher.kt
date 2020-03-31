@@ -1,12 +1,12 @@
 package com.balsdon.ratesapp.offlinemock.dataBroker
 
+import com.balsdon.ratesapp.dataBroker.RateFetcher
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.model.RateItem
 import com.balsdon.ratesapp.model.RateResponse
-import com.balsdon.ratesapp.service.ApiService
 import java.util.*
 
-class DebugMockService : ApiService {
+class DebugMockRateFetcher : RateFetcher {
     companion object {
         const val RANDOM_MIN = 0.0
         const val RANDOM_MAX = 999.0

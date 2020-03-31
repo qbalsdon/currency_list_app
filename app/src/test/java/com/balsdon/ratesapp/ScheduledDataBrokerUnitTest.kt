@@ -1,15 +1,16 @@
 package com.balsdon.ratesapp
 
+import com.balsdon.ratesapp.dataBroker.RateFetcher
 import com.balsdon.ratesapp.dataBroker.RateListResult
 import com.balsdon.ratesapp.dataBroker.ScheduledDataBroker
-import com.balsdon.ratesapp.service.ApiService
 import io.mockk.mockk
 import io.mockk.spyk
 import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class TestApiService(private val result: RateListResult = RateListResult.Success(mockk()), private val delay: Long = 0L,private val repeat: Int = 1): ApiService {
+class TestRateFetcher(private val result: RateListResult = RateListResult.Success(mockk()), private val delay: Long = 0L, private val repeat: Int = 1):
+    RateFetcher {
     override fun fetchRates(update: (RateListResult) -> Unit) {
         if (delay > 0) {
             Thread.sleep(delay)
@@ -34,7 +35,7 @@ class ScheduledDataBrokerUnitTest {
         //given
         val seconds = 5
 
-        val service = TestApiService()
+        val service = TestRateFetcher()
         val broker = ScheduledDataBroker(service, DELAY)
 
         var count = 0
@@ -55,7 +56,7 @@ class ScheduledDataBrokerUnitTest {
         //given
         val seconds = 3
 
-        val service = spyk(TestApiService(delay = ONE_SECOND))
+        val service = spyk(TestRateFetcher(delay = ONE_SECOND))
         val broker = ScheduledDataBroker(service, DELAY)
 
         var count = 0
@@ -75,7 +76,7 @@ class ScheduledDataBrokerUnitTest {
     @Test
     fun scheduledDataBrokerNotifiesOnlyOneError() {
         //given
-        val service = spyk(TestApiService(
+        val service = spyk(TestRateFetcher(
             result = RateListResult.Error(RateListResult.ErrorCode.GENERIC_ERROR),
             repeat = 2
         ))

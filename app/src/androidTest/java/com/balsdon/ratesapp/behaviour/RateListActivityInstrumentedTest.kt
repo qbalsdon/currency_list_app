@@ -11,7 +11,7 @@ import com.balsdon.ratesapp.R
 import com.balsdon.ratesapp.TestRunner.Companion.assertDefaultStatus
 import com.balsdon.ratesapp.TestRunner.Companion.assertHeaderHas
 import com.balsdon.ratesapp.TestRunner.Companion.assertListItemHas
-import com.balsdon.ratesapp.mocks.EspressoMockService
+import com.balsdon.ratesapp.mocks.EspressoMockRateFetcher
 import com.balsdon.ratesapp.viewAssertions.RecyclerViewHasItemCount
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Test
@@ -34,7 +34,7 @@ class RateListActivityInstrumentedTest: BaseRatesAppEspressoTest() {
         getNextSuccessAll()
 
         onView(withId(R.id.currency_list))
-            .check(RecyclerViewHasItemCount(EspressoMockService.allCountryCodes.size - 1))
+            .check(RecyclerViewHasItemCount(EspressoMockRateFetcher.allCountryCodes.size - 1))
     }
 
     @Test
