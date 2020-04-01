@@ -44,8 +44,8 @@ jobs:
       - name: Build Project
         run: ./gradlew assemble --stacktrace
 
-      - name: Run Unit Tests
-        run: ./gradlew test --stacktrace
+      #- name: Run Unit Tests
+      #  run: ./gradlew test --stacktrace
       
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.3
@@ -53,9 +53,12 @@ jobs:
       - name: Ensure $ANDROID_HOME is set
         run: echo $ANDROID_HOME
       
+      - name: Accept Licenses
+        run: yes | ANDROID_HOME/tools/bin/sdkmanager --licenses
+      
       - name: Create AVD
         run: $ANDROID_HOME/tools/bin/avdmanager -v create avd -n test_device -k "system-images;android-23;google_apis;x86;no"
-     
+        
       - name: Run AVD
         run: $ANDROID_HOME/emulator/emulator test_device 
       
