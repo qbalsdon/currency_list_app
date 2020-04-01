@@ -49,14 +49,22 @@ jobs:
       
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.3
-        
-      - uses: malinskiy/action-android/emulator-run-cmd@release/0.0.5
-        with:
-          cmd: ./gradlew connectedCheck --stacktrace
-          api: 23
-          tag: default
-          abi: x86
+      
+      - name: Ensure $ANDROID_HOME is set
+        run: echo $ANDROID_HOME
+      
+      - name: Create AVD
+        run: $ANDROID_HOME/tools/bin/avdmanager -v create avd -n test_device -k "system-images;android-23;google_apis;x86;no"
+     
+      - name: Run AVD
+        run: $ANDROID_HOME/emulator/emulator test_device 
+      
+      - name: Run Intsrumentation Tests
+        run: ./gradlew connectedTest --stacktrace
 
+      - name: Delete AVD
+        run: $ANDROID_HOME/tools/bin/avdmanager delete avd -n
+      
       - name: Reclaim Memory
         run: ./gradlew --stop && jps|grep -E 'KotlinCompileDaemon|GradleDaemon'| awk '{print $1}'| xargs kill -9
 
