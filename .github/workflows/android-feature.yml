@@ -41,7 +41,7 @@ jobs:
         run: echo $ANDROID_HOME
       
       - name: Install Packages
-        run: ANDROID_HOME/tools/bin/sdkmanager "system-images;android-23;google_apis;x86"
+        run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-23;google_apis;x86"
       
       - name: Accept Licenses
         run: yes | ANDROID_HOME/tools/bin/sdkmanager --licenses
