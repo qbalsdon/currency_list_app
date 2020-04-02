@@ -1,3 +1,4 @@
+  
 name: Android Feature Branch CI
 # modified from https://github.com/uber/AutoDispose/blob/master/.github/workflows/ci.yml
 on:
@@ -13,13 +14,13 @@ on:
 jobs:
   build:
     name: Run Test Suite (Unit [TODO Instrumented]) [JDK ${{ matrix.java_version }}]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         java_version: [1.8]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: "Run UI Tests"
-        uses: vgaidarji/android-github-actions-emulator@v1.0.1
+        - uses: actions/checkout@v1
+        - uses: malinskiy/action-android/install-sdk@release/0.0.5
+        - run: adb devices
+        - run: echo $ANDROID_HOME
+        - run: ./gradlew connectCheck --stacktrace
