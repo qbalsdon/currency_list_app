@@ -23,4 +23,5 @@ jobs:
         - uses: malinskiy/action-android/install-sdk@release/0.0.5
         - run: adb devices
         - run: echo $ANDROID_HOME
+        - run: $ANDROID_HOME/tools/bin/avdmanager list avd
         - run: ./gradlew connectedCheck --stacktrace
