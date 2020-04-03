@@ -10,19 +10,21 @@ on:
   pull_request:
     branches:
       - master
-          
+
 jobs:
   test:
     name: Run Test Suite (Unit [TODO Instrumented]) [JDK ${{ matrix.java_version }}]
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
     - name: checkout
       uses: actions/checkout@v2
+
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 28
-        arch: x86_64
+        # api-level: 29
+        api-level: 23
         target: default
-        emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-        script: ./gradlew connectedDebugAndroidTest
+        arch: x86
+        profile: Nexus 6
+        script: ./gradlew connectedCheck --stacktrace
