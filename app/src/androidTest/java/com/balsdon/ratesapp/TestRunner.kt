@@ -85,33 +85,6 @@ class TestRunner : AndroidJUnitRunner() {
                 EspressoTestsMatchers.withDrawable(drawableId)
             )
         }
-
-        fun assertDefaultStatus() {
-            assertHeaderHas("EUR", "Euro", "1.00", R.drawable.ic_european_union)
-
-            assertListItemHas(3, "CAD", "Canadian Dollar", "6.00", R.drawable.ic_canada)
-            assertListItemHas(4, "CHF", "Swiss Franc", "8.00", R.drawable.ic_switzerland)
-            assertListItemHas(5, "CNY", "Chinese Yuan", "10.00", R.drawable.ic_china)
-            assertListItemHas(6, "CZK", "Czech Koruna", "12.00", R.drawable.ic_czech_republic)
-        }
-
-        fun resetToEuro() {
-            Espresso.onView(ViewMatchers.withId(R.id.currency_list))
-                .perform(
-                    RecyclerViewActions.actionOnItemAtPosition<RateListAdapter.RateItemViewHolder>(
-                        0,
-                        ViewActions.click()
-                    )
-                )
-            Espresso.onView(
-                CoreMatchers.allOf(
-                    ViewMatchers.withId(R.id.list_item_rate_currency_rate),
-                    ViewMatchers.isDescendantOfA(ViewMatchers.withId(R.id.rate_list_base))
-                )
-            ).perform(ViewActions.replaceText("1.00"))
-
-            assertHeaderHas("EUR", "Euro", "1.00", R.drawable.ic_european_union)
-        }
     }
 
     @Throws(
