@@ -73,5 +73,4 @@ The project uses GitHub actions to run unit tests automatically. Currently the s
 * App icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [Flaticon](https://www.flaticon.com/)
 * Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/)
 
-
 ###### &copy; 2020 [Quintin Balsdon](https://www.linkedin.com/in/qbalsdon/)
