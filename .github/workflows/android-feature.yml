@@ -1,6 +1,5 @@
 
 name: Android Feature Branch CI
-# modified from https://github.com/uber/AutoDispose/blob/master/.github/workflows/ci.yml
 on:
   push:
     branches-ignore:
@@ -17,7 +16,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Set Up JDK 1.8
         uses: actions/setup-java@v1
