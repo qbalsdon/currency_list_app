@@ -24,7 +24,7 @@ jobs:
 
       - name: Upload Offline Mock APK
         env:
-          RUN_NUMBER: ${{ GITHUB_RUN_NUMBER }}
+          RUN_NUMBER: ${{ $GITHUB_RUN_NUMBER }}
         uses: actions/upload-artifact@v1
         with:
           name: app-offlinemock-${{RUN_NUMBER}}-debug
