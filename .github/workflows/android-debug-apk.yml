@@ -23,11 +23,9 @@ jobs:
         run: bash ./gradlew assembleOfflinemockDebug --stacktrace
 
       - name: Upload Offline Mock APK
-        env:
-          RUN_NUMBER: ${{ $GITHUB_RUN_NUMBER }}
         uses: actions/upload-artifact@v1
         with:
-          name: app-offlinemock-${{RUN_NUMBER}}-debug
+          name: app-offlinemock-${{ github.run_number }}-debug
           path: app/build/outputs/apk/offlinemock/debug/app-offlinemock-debug.apk
 
       - name: Build Euro Central Bank Debug APK
