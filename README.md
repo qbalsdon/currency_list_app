@@ -1,3 +1,5 @@
+# DEPRECATED: This project is no longer maintained
+
 ![Android Master](https://github.com/qbalsdon/currency_list_app/workflows/Android%20Master/badge.svg?branch=master&event=push)
 # Android Rates App
 ![Rates App Icon](app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png "Rates App Icon")
